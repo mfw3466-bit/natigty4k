@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتيجة | Natijati</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary-green: #28a745; --primary-blue: #1e3c72; --header-bg: #004d40; --alert-blue: #0b5ed7; }
+        body { font-family: 'Tajawal', sans-serif; background-color: #f4f7f6; margin: 0; min-height: 100vh; }
+        #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+        .hidden { display: none !important; }
+        .navbar-custom { background-color: var(--header-bg); padding: 15px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .brand-logo { color: white; font-size: 1.8rem; font-weight: 900; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .main-title { color: #555; font-weight: 700; margin-bottom: 40px; font-size: 1.8rem; }
+        .stage-card { border-radius: 15px; padding: 40px 20px; color: white; text-align: center; cursor: pointer; transition: 0.3s; height: 220px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .card-sec { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
+        .card-prep { background: linear-gradient(135deg, #42e695 0%, #3bb2b8 100%); }
+        .stage-card:hover { transform: translateY(-5px); }
+        .stage-icon { font-size: 4rem; margin-bottom: 15px; }
+        .gov-btn { background: white; border: none; border-radius: 8px; padding: 15px; font-weight: 700; color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.2s; width: 100%; }
+        .gov-btn:hover { background-color: var(--header-bg); color: white; }
+        .search-info-bar { background-color: var(--alert-blue); color: white; padding: 15px; text-align: center; font-size: 1.1rem; }
+        .search-info-bar a { color: #fff; text-decoration: underline; font-weight: bold; margin-top: 5px; display: inline-block; }
+        .congrats-bar { background-color: #eeeeee; color: #333; padding: 12px; text-align: center; font-weight: bold; border-bottom: 1px solid #ddd; }
+        .result-wrapper { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.15); max-width: 850px; margin: 0 auto; }
+        .res-header { background-color: #b71c1c; color: white; padding: 15px; font-size: 1.4rem; font-weight: bold; text-align: center; }
+        .table-custom td { padding: 15px; border-bottom: 1px solid #eee; }
+        .lbl { background-color: #f8f9fa; font-weight: bold; color: #555; width: 30%; }
+        .val { font-weight: bold; font-size: 1.1rem; }
+        .btn-back { margin-top: 20px; border-radius: 20px; padding: 8px 25px; }
+    </style>
+</head>
+<body>
+
+    <div id="loading" class="hidden">
+        <div class="spinner-border text-success" role="status" style="width: 3rem; height: 3rem;"></div>
+        <div id="loading-text" class="mt-3 fw-bold text-dark">جاري العمل...</div>
+    </div>
+
+    <nav class="navbar-custom text-center">
+        <a href="#" class="brand-logo" onclick="goHome()"><i class="fas fa-graduation-cap"></i> نتيجتي</a>
+    </nav>
+
+    <div id="section-home" class="container mt-5 text-center">
+        <h2 class="main-title">اختر المرحلة الدراسية</h2>
+        <div class="row justify-content-center g-4">
+            <div class="col-md-5 col-lg-4">
+                <div class="stage-card card-sec" onclick="goToSearchSec()">
+                    <i class="fas fa-university stage-icon"></i>
+                    <div class="stage-title">الشهادة الثانوية</div>
+                    <small>عرض النتيجة برقم الجلوس</small>
+                </div>
+            </div>
+            <div class="col-md-5 col-lg-4">
+                <div class="stage-card card-prep" onclick="goToGovs('prep')">
+                    <i class="fas fa-school stage-icon"></i>
+                    <div class="stage-title">الشهادة الإعدادية</div>
+                    <small>عرض النتائج لجميع المحافظات</small>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5">
+            <button onclick="showLogin()" class="btn btn-link text-muted small" style="text-decoration: none;"><i class="fas fa-lock"></i> دخول الكنترول</button>
+        </div>
+    </div>
+
+    <div id="section-gov" class="container mt-5 hidden">
+        <h3 class="text-center mb-4 fw-bold text-secondary">اختر المحافظة <span id="stage-display-text" class="text-primary"></span></h3>
+        <div class="row g-3" id="gov-grid"></div>
+        <div class="text-center mt-4"><button onclick="goHome()" class="btn btn-secondary btn-back px-5">عودة</button></div>
+    </div>
+
+    <div id="section-search" class="container mt-5 hidden">
+        <div class="card shadow-sm border-0 mx-auto p-5 text-center" style="max-width: 600px; border-radius: 15px;">
+            <h4 class="mb-4 fw-bold" id="search-title">بحث عن النتيجة</h4>
+            <div class="input-group input-group-lg mb-3 shadow-sm rounded overflow-hidden">
+                <span class="input-group-text bg-white border-0"><i class="fas fa-search text-muted"></i></span>
+                <input type="text" id="search-input" class="form-control border-0 bg-light text-center" placeholder="أدخل رقم الجلوس...">
+            </div>
+            <button onclick="searchSmart()" class="btn btn-primary w-100 py-3 fw-bold fs-5">عرض النتيجة</button>
+        </div>
+    </div>
+
+    <div id="section-result" class="container mt-5 hidden">
+        <div class="result-wrapper">
+            <div class="search-info-bar">
+                أنت تبحث عن رقم جلوس : (<span id="info-seat"></span>) <span id="info-stage"></span> <span id="info-gov"></span>
+                <br><a href="#" onclick="goHome()">اضغط هنا للبحث عن نتيجة جديدة</a>
+            </div>
+            <div class="congrats-bar">🤩 🥳 ألف مبروك نتيجة الترم الأول 2026 متاحة الآن</div>
+            <div class="res-header">بيانات الطالب</div>
+            <table class="table table-custom mb-0">
+                <tr><td class="lbl">اسم الطالب</td><td class="val text-primary" id="r-name"></td></tr>
+                <tr><td class="lbl">رقم الجلوس</td><td class="val" id="r-seat"></td></tr>
+                <tr><td class="lbl">المحافظة</td><td class="val" id="r-gov"></td></tr>
+                <tr><td class="lbl">المدرسة</td><td class="val text-secondary" id="r-school"></td></tr>
+                <tr><td class="lbl">المجموع</td><td class="val fw-bold text-dark" id="r-score"></td></tr>
+                <tr><td class="lbl">المجموع الكلي</td><td class="val text-success" id="r-max"></td></tr>
+                <tr><td class="lbl">النسبة المئوية</td><td class="val fw-bold" id="r-perc" style="color: #000;"></td></tr>
+                <tr><td class="lbl">حالة الطالب</td><td class="val fw-bold" id="r-status"></td></tr>
+            </table>
+            <div class="p-4 text-center bg-light border-top">
+                <button onclick="window.print()" class="btn btn-success me-2 px-4"><i class="fas fa-print"></i> طباعة</button>
+                <button onclick="goHome()" class="btn btn-outline-dark px-4">بحث جديد</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-admin" class="container mt-4 hidden">
+        <div class="card shadow p-4 border-0" style="border-radius: 15px;">
+            <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+                <h4 class="text-success fw-bold"><i class="fas fa-database"></i> الكنترول الذكي</h4>
+                <button onclick="logout()" class="btn btn-danger btn-sm rounded-pill px-3">خروج</button>
+            </div>
+            <div class="bg-light p-4 rounded border mb-4">
+                <h5 class="text-primary fw-bold mb-3">بحث وتعديل الطالب</h5>
+                <div class="input-group mb-3">
+                    <input type="text" id="admin-edit-seat" class="form-control" placeholder="رقم الجلوس...">
+                    <button onclick="fetchForEdit()" class="btn btn-primary px-4">جلب البيانات</button>
+                </div>
+                
+                <div id="edit-area" class="row g-3 hidden p-3 border rounded bg-white mt-3 shadow-sm">
+                    <div class="col-md-6">
+                        <label class="small fw-bold">الاسم</label>
+                        <input type="text" id="edit-name" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="small fw-bold">المجموع (يتغير تلقائياً)</label>
+                        <input type="number" id="edit-score" class="form-control" oninput="autoCalculate()">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="small fw-bold">النسبة (تلقائي)</label>
+                        <input type="text" id="edit-perc" class="form-control bg-light" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small fw-bold">حالة الطالب</label>
+                        <select id="edit-status" class="form-select">
+                            <option value="ممتاز">ممتاز</option>
+                            <option value="جيد جدا">جيد جداً</option>
+                            <option value="جيد">جيد</option>
+                            <option value="مقبول">مقبول</option>
+                            <option value="دون المستوى">دون المستوى</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-end">
+                        <button onclick="saveAdminChanges()" class="btn btn-success w-100 fw-bold">حفظ التعديلات</button>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center"><button onclick="goHome()" class="btn btn-outline-secondary">العودة للرئيسية</button></div>
+        </div>
+    </div>
+
+    <div id="section-login" class="container mt-5 hidden text-center">
+        <div class="card mx-auto shadow p-4 border-0" style="max-width: 400px; border-radius: 15px;">
+            <h4 class="mb-4 fw-bold">دخول الأدمن</h4>
+            <input type="text" id="adm-user" class="form-control mb-3" placeholder="المستخدم">
+            <input type="password" id="adm-pass" class="form-control mb-3" placeholder="كلمة المرور">
+            <button onclick="login()" class="btn btn-dark w-100 py-2">دخول</button>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAmrhUXSbQaTofHg3v3LldfMjOIYZyPL8s",
+            authDomain: "natijati-d7d3d.firebaseapp.com",
+            projectId: "natijati-d7d3d",
+            storageBucket: "natijati-d7d3d.firebasestorage.app",
+            messagingSenderId: "798932310667",
+            appId: "1:798932310667:web:44e81d3c226c612779528e"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        const governorates = ["القاهرة", "الجيزة", "الإسكندرية", "الدقهلية", "الشرقية", "المنوفية", "القليوبية", "البحيرة", "الغربية", "بور سعيد", "دمياط", "الإسماعيلية", "السويس", "الفيوم", "بني سويف", "المنيا", "أسيوط", "سوهاج", "قنا", "الأقصر", "أسوان", "مطروح", "الوادي الجديد", "البحر الأحمر", "شمال سيناء", "جنوب سيناء"];
+        let currentStage = '', currentGov = '', adminEditId = '';
+
+        window.onload = function() {
+            const grid = document.getElementById('gov-grid');
+            governorates.forEach(gov => {
+                grid.innerHTML += `<div class="col-6 col-md-4 col-lg-3"><button onclick="selectGov('${gov}')" class="gov-btn border shadow-sm">${gov}</button></div>`;
+            });
+        };
+
+        function hideAll() { ['section-home','section-gov','section-search','section-result','section-login','section-admin'].forEach(id=>document.getElementById(id).classList.add('hidden')); }
+        function goHome() { hideAll(); document.getElementById('section-home').classList.remove('hidden'); }
+        function goToSearchSec() { currentStage = 'sec'; currentGov = 'الجمهورية'; hideAll(); document.getElementById('section-search').classList.remove('hidden'); document.getElementById('search-title').innerText = "نتائج الثانوية العامة"; }
+        function goToGovs(s) { currentStage = s; hideAll(); document.getElementById('section-gov').classList.remove('hidden'); }
+        function selectGov(g) { currentGov = g; hideAll(); document.getElementById('section-search').classList.remove('hidden'); document.getElementById('search-title').innerText = `نتيجة محافظة ${g}`; }
+        function showLogin() { hideAll(); document.getElementById('section-login').classList.remove('hidden'); }
+        function logout() { goHome(); }
+        function login() { if(document.getElementById('adm-user').value==='kapo') { hideAll(); document.getElementById('section-admin').classList.remove('hidden'); } }
+
+        // --- البحث الذكي ---
+        async function searchSmart() {
+            const seat = document.getElementById('search-input').value.trim();
+            if(!seat) return;
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('loading-text').innerText = "جاري البحث...";
+
+            const snap = await db.collection("results").where("stage","==",currentStage).where("gov","==",currentGov).where("seat","==",seat).get();
+            if(!snap.empty) {
+                renderResult(snap.docs[0].data());
+                return;
+            }
+
+            document.getElementById('loading-text').innerText = "جاري جلب النتيجة (انتظر قليلاً)...";
+            await db.collection("scraping_orders").add({ gov: currentGov, seat: seat, timestamp: new Date() });
+
+            let attempts = 0;
+            const timer = setInterval(async () => {
+                attempts++;
+                const check = await db.collection("results").where("gov","==",currentGov).where("seat","==",seat).get();
+                if(!check.empty) {
+                    clearInterval(timer);
+                    renderResult(check.docs[0].data());
+                }
+                if(attempts > 12) {
+                    clearInterval(timer);
+                    document.getElementById('loading').classList.add('hidden');
+                    alert("الموقع الرسمي مشغول حالياً أو الرقم غير صحيح.");
+                }
+            }, 3000);
+        }
+
+        function renderResult(data) {
+            document.getElementById('loading').classList.add('hidden');
+            hideAll(); document.getElementById('section-result').classList.remove('hidden');
+            document.getElementById('info-seat').innerText = data.seat;
+            document.getElementById('info-stage').innerText = (data.stage==='sec')?"الثانوية العامة":"الشهادة الإعدادية";
+            document.getElementById('info-gov').innerText = (data.stage==='sec')?"": " - " + data.gov;
+            document.getElementById('r-name').innerText = data.name;
+            document.getElementById('r-seat').innerText = data.seat;
+            document.getElementById('r-gov').innerText = data.gov;
+            document.getElementById('r-school').innerText = data.school || "عام";
+            
+            // إصلاح عرض الأرقام هنا
+            let finalScore = parseFloat(data.score);
+            document.getElementById('r-score').innerText = isNaN(finalScore) ? data.score : finalScore.toFixed(2);
+            document.getElementById('r-max').innerText = data.max || "140.00";
+            document.getElementById('r-perc').innerText = data.perc || "-";
+            document.getElementById('r-status').innerText = data.status || "-";
+        }
+
+        // --- وظائف الكنترول الذكية ---
+        async function fetchForEdit() {
+            const s = document.getElementById('admin-edit-seat').value;
+            const res = await db.collection("results").where("seat","==",s).get();
+            if(!res.empty) {
+                adminEditId = res.docs[0].id;
+                const d = res.docs[0].data();
+                document.getElementById('edit-name').value = d.name;
+                document.getElementById('edit-score').value = parseFloat(d.score); // رقم للعمليات الحسابية
+                document.getElementById('edit-perc').value = d.perc;
+                document.getElementById('edit-status').value = d.status || "مقبول"; // اختيار الحالة الحالية
+                document.getElementById('edit-area').classList.remove('hidden');
+                autoCalculate(); // تحديث الحسابات فوراً
+            } else { alert("هذا الطالب غير موجود."); }
+        }
+
+        // دالة الحساب التلقائي (السحرية)
+        function autoCalculate() {
+            const score = parseFloat(document.getElementById('edit-score').value) || 0;
+            const max = 140;
+            const percVal = (score / max) * 100;
+            
+            // تحديث خانة النسبة
+            document.getElementById('edit-perc').value = percVal.toFixed(2) + " %";
+
+            // تحديد الحالة تلقائياً
+            let status = "دون المستوى";
+            if (percVal >= 85) status = "ممتاز";
+            else if (percVal >= 75) status = "جيد جدا";
+            else if (percVal >= 65) status = "جيد";
+            else if (percVal >= 50) status = "مقبول";
+
+            document.getElementById('edit-status').value = status;
+        }
+
+        async function saveAdminChanges() {
+            const score = parseFloat(document.getElementById('edit-score').value);
+            const formattedScore = score.toFixed(2); // حفظ بصيغة .00
+            
+            await db.collection("results").doc(adminEditId).update({
+                name: document.getElementById('edit-name').value,
+                score: formattedScore,
+                perc: document.getElementById('edit-perc').value,
+                status: document.getElementById('edit-status').value
+            });
+            alert("تم الحفظ بنجاح!");
+            document.getElementById('edit-area').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
