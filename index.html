@@ -78,7 +78,7 @@
             <h4 class="mb-4 fw-bold" id="search-title">بحث عن النتيجة</h4>
             <div class="input-group input-group-lg mb-3 shadow-sm rounded overflow-hidden">
                 <span class="input-group-text bg-white border-0"><i class="fas fa-search text-muted"></i></span>
-                <input type="text" id="search-input" class="form-control border-0 bg-light text-center" placeholder="أدخل رقم الجلوس...">
+                <input type="text" id="search-input" class="form-control border-0 bg-light text-center" placeholder="أدخل رقم الجلوس..." autocomplete="off">
             </div>
             <button onclick="searchSmart()" class="btn btn-primary w-100 py-3 fw-bold fs-5">عرض النتيجة</button>
         </div>
@@ -118,7 +118,7 @@
             <div class="bg-light p-4 rounded border mb-4">
                 <h5 class="text-primary fw-bold mb-3">بحث وتعديل الطالب</h5>
                 <div class="input-group mb-3">
-                    <input type="text" id="admin-edit-seat" class="form-control" placeholder="رقم الجلوس...">
+                    <input type="text" id="admin-edit-seat" class="form-control" placeholder="رقم الجلوس..." autocomplete="off">
                     <button onclick="fetchForEdit()" class="btn btn-primary px-4">جلب البيانات</button>
                 </div>
                 
@@ -157,9 +157,11 @@
     <div id="section-login" class="container mt-5 hidden text-center">
         <div class="card mx-auto shadow p-4 border-0" style="max-width: 400px; border-radius: 15px;">
             <h4 class="mb-4 fw-bold">دخول الأدمن</h4>
-            <input type="text" id="adm-user" class="form-control mb-3" placeholder="المستخدم">
-            <input type="password" id="adm-pass" class="form-control mb-3" placeholder="كلمة المرور">
-            <button onclick="login()" class="btn btn-dark w-100 py-2">دخول</button>
+            <form onsubmit="event.preventDefault(); login();" autocomplete="off">
+                <input type="text" id="adm-user" class="form-control mb-3" placeholder="المستخدم" autocomplete="off">
+                <input type="password" id="adm-pass" class="form-control mb-3" placeholder="كلمة المرور" autocomplete="new-password">
+                <button type="submit" class="btn btn-dark w-100 py-2">دخول</button>
+            </form>
         </div>
     </div>
 
@@ -193,9 +195,35 @@
         function goToSearchSec() { currentStage = 'sec'; currentGov = 'الجمهورية'; hideAll(); document.getElementById('section-search').classList.remove('hidden'); document.getElementById('search-title').innerText = "نتائج الثانوية العامة"; }
         function goToGovs(s) { currentStage = s; hideAll(); document.getElementById('section-gov').classList.remove('hidden'); }
         function selectGov(g) { currentGov = g; hideAll(); document.getElementById('section-search').classList.remove('hidden'); document.getElementById('search-title').innerText = `نتيجة محافظة ${g}`; }
-        function showLogin() { hideAll(); document.getElementById('section-login').classList.remove('hidden'); }
-        function logout() { goHome(); }
-        function login() { if(document.getElementById('adm-user').value==='kapo') { hideAll(); document.getElementById('section-admin').classList.remove('hidden'); } }
+        
+        function showLogin() { 
+            hideAll(); 
+            document.getElementById('section-login').classList.remove('hidden'); 
+            // تفريغ الخانات عند فتح الصفحة لزيادة الأمان
+            document.getElementById('adm-user').value = '';
+            document.getElementById('adm-pass').value = '';
+        }
+        
+        function logout() { 
+            goHome(); 
+            // تفريغ البيانات عند الخروج
+            document.getElementById('adm-user').value = '';
+            document.getElementById('adm-pass').value = '';
+        }
+
+        // --- إصلاح دالة الدخول ---
+        function login() { 
+            const u = document.getElementById('adm-user').value;
+            const p = document.getElementById('adm-pass').value;
+            
+            // التحقق من اليوزر والباسورد معاً
+            if(u === 'a' && p === '00') { 
+                hideAll(); 
+                document.getElementById('section-admin').classList.remove('hidden'); 
+            } else {
+                alert("بيانات الدخول خاطئة!");
+            }
+        }
 
         // --- البحث الذكي ---
         async function searchSmart() {
@@ -240,7 +268,6 @@
             document.getElementById('r-gov').innerText = data.gov;
             document.getElementById('r-school').innerText = data.school || "عام";
             
-            // إصلاح عرض الأرقام هنا
             let finalScore = parseFloat(data.score);
             document.getElementById('r-score').innerText = isNaN(finalScore) ? data.score : finalScore.toFixed(2);
             document.getElementById('r-max').innerText = data.max || "140.00";
@@ -256,24 +283,21 @@
                 adminEditId = res.docs[0].id;
                 const d = res.docs[0].data();
                 document.getElementById('edit-name').value = d.name;
-                document.getElementById('edit-score').value = parseFloat(d.score); // رقم للعمليات الحسابية
+                document.getElementById('edit-score').value = parseFloat(d.score); 
                 document.getElementById('edit-perc').value = d.perc;
-                document.getElementById('edit-status').value = d.status || "مقبول"; // اختيار الحالة الحالية
+                document.getElementById('edit-status').value = d.status || "مقبول"; 
                 document.getElementById('edit-area').classList.remove('hidden');
-                autoCalculate(); // تحديث الحسابات فوراً
+                autoCalculate(); 
             } else { alert("هذا الطالب غير موجود."); }
         }
 
-        // دالة الحساب التلقائي (السحرية)
         function autoCalculate() {
             const score = parseFloat(document.getElementById('edit-score').value) || 0;
             const max = 140;
             const percVal = (score / max) * 100;
             
-            // تحديث خانة النسبة
             document.getElementById('edit-perc').value = percVal.toFixed(2) + " %";
 
-            // تحديد الحالة تلقائياً
             let status = "دون المستوى";
             if (percVal >= 85) status = "ممتاز";
             else if (percVal >= 75) status = "جيد جدا";
@@ -285,7 +309,7 @@
 
         async function saveAdminChanges() {
             const score = parseFloat(document.getElementById('edit-score').value);
-            const formattedScore = score.toFixed(2); // حفظ بصيغة .00
+            const formattedScore = score.toFixed(2); 
             
             await db.collection("results").doc(adminEditId).update({
                 name: document.getElementById('edit-name').value,
