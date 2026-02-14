@@ -13,7 +13,20 @@
         #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
         .hidden { display: none !important; }
         .navbar-custom { background-color: var(--header-bg); padding: 15px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .brand-logo { color: white; font-size: 1.8rem; font-weight: 900; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        
+        /* التنسيق الأساسي (للكمبيوتر) */
+        .brand-logo { color: white; font-size: 1.8rem; font-weight: 900; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        
+        /* --- تعديل الموبايل: تصغير الخط --- */
+        @media (max-width: 768px) {
+            .brand-logo { 
+                font-size: 1.1rem; /* تصغير الخط في الموبايل */
+            }
+            .brand-logo i {
+                font-size: 1.3rem; /* تصغير الأيقونة */
+            }
+        }
+
         .main-title { color: #555; font-weight: 700; margin-bottom: 40px; font-size: 1.8rem; }
         .stage-card { border-radius: 15px; padding: 40px 20px; color: white; text-align: center; cursor: pointer; transition: 0.3s; height: 220px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .card-sec { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
@@ -199,24 +212,21 @@
         function showLogin() { 
             hideAll(); 
             document.getElementById('section-login').classList.remove('hidden'); 
-            // تفريغ الخانات عند فتح الصفحة لزيادة الأمان
             document.getElementById('adm-user').value = '';
             document.getElementById('adm-pass').value = '';
         }
         
         function logout() { 
             goHome(); 
-            // تفريغ البيانات عند الخروج
             document.getElementById('adm-user').value = '';
             document.getElementById('adm-pass').value = '';
         }
 
-        // --- إصلاح دالة الدخول ---
+        // تسجيل الدخول
         function login() { 
             const u = document.getElementById('adm-user').value;
             const p = document.getElementById('adm-pass').value;
-            
-            // التحقق من اليوزر والباسورد معاً
+            // يمكنك تغيير البيانات هنا
             if(u === 'a' && p === '00') { 
                 hideAll(); 
                 document.getElementById('section-admin').classList.remove('hidden'); 
@@ -225,7 +235,6 @@
             }
         }
 
-        // --- البحث الذكي ---
         async function searchSmart() {
             const seat = document.getElementById('search-input').value.trim();
             if(!seat) return;
@@ -275,7 +284,6 @@
             document.getElementById('r-status').innerText = data.status || "-";
         }
 
-        // --- وظائف الكنترول الذكية ---
         async function fetchForEdit() {
             const s = document.getElementById('admin-edit-seat').value;
             const res = await db.collection("results").where("seat","==",s).get();
