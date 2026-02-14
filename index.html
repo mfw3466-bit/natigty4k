@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نتيجة كنترول الوزارة</title>
+    <title>نتيجة كنترول الوزارة الرسمي</title>
     
     <link rel="icon" href="image_12.png" type="image/png">
     <link rel="shortcut icon" href="image_12.png" type="image/png">
@@ -70,13 +70,13 @@
     <nav class="navbar-custom text-center">
         <a href="#" class="brand-logo" onclick="goHome()">
             <img src="image_12.png" alt="شعار">
-            <span class="mt-2">نتيجة كنترول الوزارة</span>
+            <span class="mt-2">نتيجة كنترول الوزارة الرسمي</span>
         </a>
     </nav>
 
     <div id="section-home" class="container mt-5 text-center mb-5">
         <div class="intro-box mx-auto" style="max-width: 900px;">
-            <p class="intro-text mb-0">نقدم لكـ من خلال <strong>موقع نتيجة كنترول الوزارة</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس.</p>
+            <p class="intro-text mb-0">نقدم لكـ من خلال <strong>موقع نتيجة كنترول الوزارة الرسمي</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس.</p>
         </div>
 
         <h2 class="main-title">اختر المرحلة الدراسية</h2>
@@ -277,7 +277,9 @@
         function renderCard(container, name, status, count) {
             let badgeClass = status === 'available' ? 'status-available' : 'status-soon';
             let badgeText = status === 'available' ? '• متاح الآن' : '• قريباً';
-            let countText = status === 'available' ? `<i class="fas fa-check-circle"></i> النتيجة ظهرت` : 'جاري الرفع...';
+            
+            // ✅✅ التعديل هنا: إظهار عدد الطلاب الفعلي ✅✅
+            let countText = status === 'available' ? `<i class="fas fa-user-graduate"></i> ${parseInt(count).toLocaleString()} طالب` : 'جاري الرفع...';
             let percent = status === 'available' ? 100 : 0;
 
             let card = `
