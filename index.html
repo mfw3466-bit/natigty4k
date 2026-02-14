@@ -12,13 +12,18 @@
         body { font-family: 'Tajawal', sans-serif; background-color: #f4f7f6; margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
         #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
         .hidden { display: none !important; }
-        .navbar-custom { background-color: var(--header-bg); padding: 15px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .navbar-custom { background-color: var(--header-bg); padding: 10px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         
-        /* تنسيق العنوان وتصغيره في الموبايل */
+        /* --- تنسيق اللوجو والعنوان (تعديل جديد) --- */
         .brand-logo { color: white; font-size: 1.8rem; font-weight: 900; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        
+        /* حجم اللوجو في الكمبيوتر */
+        .brand-logo img { height: 50px; width: auto; } 
+
+        /* تنسيق الموبايل */
         @media (max-width: 768px) {
             .brand-logo { font-size: 1.1rem; }
-            .brand-logo i { font-size: 1.3rem; }
+            .brand-logo img { height: 35px; } /* تصغير اللوجو في الموبايل */
         }
 
         .main-title { color: #555; font-weight: 700; margin-bottom: 30px; font-size: 1.8rem; }
@@ -50,7 +55,7 @@
             color: white;
             text-align: center;
             padding: 15px 0;
-            margin-top: auto; /* يجعل الفوتر دائماً في الأسفل */
+            margin-top: auto; 
             font-size: 0.9rem;
         }
     </style>
@@ -63,7 +68,10 @@
     </div>
 
     <nav class="navbar-custom text-center">
-        <a href="#" class="brand-logo" onclick="goHome()"><i class="fas fa-graduation-cap"></i> نتيجة كنترول الوزارة الرسمي</a>
+        <a href="#" class="brand-logo" onclick="goHome()">
+            <img src="image_12.png" alt="شعار">
+            نتيجة كنترول الوزارة الرسمي
+        </a>
     </nav>
 
     <div id="section-home" class="container mt-5 text-center mb-5">
