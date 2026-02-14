@@ -14,20 +14,19 @@
         .hidden { display: none !important; }
         .navbar-custom { background-color: var(--header-bg); padding: 15px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         
-        /* التنسيق الأساسي (للكمبيوتر) */
+        /* تنسيق العنوان وتصغيره في الموبايل */
         .brand-logo { color: white; font-size: 1.8rem; font-weight: 900; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        
-        /* --- تعديل الموبايل: تصغير الخط --- */
         @media (max-width: 768px) {
-            .brand-logo { 
-                font-size: 1.1rem; /* تصغير الخط في الموبايل */
-            }
-            .brand-logo i {
-                font-size: 1.3rem; /* تصغير الأيقونة */
-            }
+            .brand-logo { font-size: 1.1rem; }
+            .brand-logo i { font-size: 1.3rem; }
         }
 
-        .main-title { color: #555; font-weight: 700; margin-bottom: 40px; font-size: 1.8rem; }
+        .main-title { color: #555; font-weight: 700; margin-bottom: 30px; font-size: 1.8rem; }
+        
+        /* تنسيق الصندوق التعريفي الجديد */
+        .intro-box { background: white; border-radius: 12px; padding: 25px; margin-bottom: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .intro-text { color: #666; line-height: 1.8; font-size: 1.05rem; }
+
         .stage-card { border-radius: 15px; padding: 40px 20px; color: white; text-align: center; cursor: pointer; transition: 0.3s; height: 220px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .card-sec { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
         .card-prep { background: linear-gradient(135deg, #42e695 0%, #3bb2b8 100%); }
@@ -58,6 +57,13 @@
     </nav>
 
     <div id="section-home" class="container mt-5 text-center">
+        
+        <div class="intro-box mx-auto" style="max-width: 900px;">
+            <p class="intro-text mb-0">
+                نقدم لكـ من خلال <strong>موقع الامتحان التعليمى</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس، والعديد من الخدمات الأخرى مثل معرفة درجات المواد ومجموعك والنسبة المئوية وحالة الطالب وترتيبك، والحصول على شهادة تقدير مميزة من الامتحان التعليمي، حيث نقدم نتيجة الصف الثالث الإعدادي والثانوي لجميع المحافظات.
+            </p>
+        </div>
+
         <h2 class="main-title">اختر المرحلة الدراسية</h2>
         <div class="row justify-content-center g-4">
             <div class="col-md-5 col-lg-4">
