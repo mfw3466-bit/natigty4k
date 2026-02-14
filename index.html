@@ -12,23 +12,38 @@
         body { font-family: 'Tajawal', sans-serif; background-color: #f4f7f6; margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
         #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
         .hidden { display: none !important; }
-        .navbar-custom { background-color: var(--header-bg); padding: 10px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        
+        /* زيادة ارتفاع الناف بار عشان يستوعب اللوجو الكبير */
+        .navbar-custom { background-color: var(--header-bg); padding: 15px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         
         /* --- تنسيق اللوجو والعنوان (تعديل جديد) --- */
-        .brand-logo { color: white; font-size: 1.8rem; font-weight: 900; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .brand-logo { 
+            color: white; 
+            font-size: 1.8rem; 
+            font-weight: 900; 
+            text-decoration: none; 
+            display: flex; 
+            flex-direction: column; /* جعل الصورة فوق النص */
+            align-items: center; 
+            justify-content: center; 
+            gap: 5px; 
+        }
         
-        /* حجم اللوجو في الكمبيوتر */
-        .brand-logo img { height: 50px; width: auto; } 
+        /* تكبير حجم اللوجو في الكمبيوتر */
+        .brand-logo img { 
+            height: 85px; /* تكبير ملحوظ */
+            width: auto; 
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); /* ظل خفيف للصورة */
+        } 
 
         /* تنسيق الموبايل */
         @media (max-width: 768px) {
-            .brand-logo { font-size: 1.1rem; }
-            .brand-logo img { height: 35px; } /* تصغير اللوجو في الموبايل */
+            .brand-logo { font-size: 1.3rem; }
+            .brand-logo img { height: 65px; } /* تكبير اللوجو في الموبايل */
         }
 
         .main-title { color: #555; font-weight: 700; margin-bottom: 30px; font-size: 1.8rem; }
         
-        /* تنسيق الصندوق التعريفي الجديد */
         .intro-box { background: white; border-radius: 12px; padding: 25px; margin-bottom: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }
         .intro-text { color: #666; line-height: 1.8; font-size: 1.05rem; }
 
@@ -49,7 +64,6 @@
         .val { font-weight: bold; font-size: 1.1rem; }
         .btn-back { margin-top: 20px; border-radius: 20px; padding: 8px 25px; }
 
-        /* تنسيق الفوتر (حقوق الملكية) */
         footer {
             background-color: var(--header-bg);
             color: white;
@@ -70,7 +84,7 @@
     <nav class="navbar-custom text-center">
         <a href="#" class="brand-logo" onclick="goHome()">
             <img src="image_12.png" alt="شعار">
-            نتيجة كنترول الوزارة الرسمي
+            <span class="mt-2">نتيجة كنترول الوزارة الرسمي</span>
         </a>
     </nav>
 
@@ -78,7 +92,7 @@
         
         <div class="intro-box mx-auto" style="max-width: 900px;">
             <p class="intro-text mb-0">
-                نقدم لكـ من خلال <strong>موقع نتيجة كنترول الوزارة الرسمي</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس، والعديد من الخدمات الأخرى مثل معرفة درجات المواد ومجموعك والنسبة المئوية وحالة الطالب وترتيبك، حيث نقدم نتيجة الصف الثالث الإعدادي لجميع المحافظات.
+                نقدم لكـ من خلال <strong>موقع الامتحان التعليمى</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس، والعديد من الخدمات الأخرى مثل معرفة درجات المواد ومجموعك والنسبة المئوية وحالة الطالب وترتيبك والحصول على شهادة تقدير مميزة من الامتحان التعليمي حيث نقدم نتيجة الصف الثالث الإعدادي لجميع المحافظات.
             </p>
         </div>
 
@@ -165,11 +179,11 @@
                         <input type="text" id="edit-name" class="form-control">
                     </div>
                     <div class="col-md-3">
-                        <label class="small fw-bold">المجموع (يتغير تلقائياً)</label>
+                        <label class="small fw-bold">المجموع</label>
                         <input type="number" id="edit-score" class="form-control" oninput="autoCalculate()">
                     </div>
                     <div class="col-md-3">
-                        <label class="small fw-bold">النسبة (تلقائي)</label>
+                        <label class="small fw-bold">النسبة</label>
                         <input type="text" id="edit-perc" class="form-control bg-light" readonly>
                     </div>
                     <div class="col-md-6">
