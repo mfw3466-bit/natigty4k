@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --primary-green: #28a745; --primary-blue: #1e3c72; --header-bg: #004d40; --alert-blue: #0b5ed7; }
-        body { font-family: 'Tajawal', sans-serif; background-color: #f4f7f6; margin: 0; min-height: 100vh; }
+        body { font-family: 'Tajawal', sans-serif; background-color: #f4f7f6; margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
         #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
         .hidden { display: none !important; }
         .navbar-custom { background-color: var(--header-bg); padding: 15px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
@@ -43,6 +43,16 @@
         .lbl { background-color: #f8f9fa; font-weight: bold; color: #555; width: 30%; }
         .val { font-weight: bold; font-size: 1.1rem; }
         .btn-back { margin-top: 20px; border-radius: 20px; padding: 8px 25px; }
+
+        /* تنسيق الفوتر (حقوق الملكية) */
+        footer {
+            background-color: var(--header-bg);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: auto; /* يجعل الفوتر دائماً في الأسفل */
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -56,11 +66,11 @@
         <a href="#" class="brand-logo" onclick="goHome()"><i class="fas fa-graduation-cap"></i> نتيجة كنترول الوزارة الرسمي</a>
     </nav>
 
-    <div id="section-home" class="container mt-5 text-center">
+    <div id="section-home" class="container mt-5 text-center mb-5">
         
         <div class="intro-box mx-auto" style="max-width: 900px;">
             <p class="intro-text mb-0">
-                نقدم لكـ من خلال <strong>موقع نتيجة كنترول الوزارة الرسمي</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس، والعديد من الخدمات الأخرى مثل معرفة درجات المواد ومجموعك والنسبة المئوية وحالة الطالب وترتيبك حيث نقدم نتيجة الصف الثالث الإعدادي والثانوي لجميع المحافظات.
+                نقدم لكـ من خلال <strong>موقع الامتحان التعليمى</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس، والعديد من الخدمات الأخرى مثل معرفة درجات المواد ومجموعك والنسبة المئوية وحالة الطالب وترتيبك والحصول على شهادة تقدير مميزة من الامتحان التعليمي حيث نقدم نتيجة الصف الثالث الإعدادي لجميع المحافظات.
             </p>
         </div>
 
@@ -86,13 +96,13 @@
         </div>
     </div>
 
-    <div id="section-gov" class="container mt-5 hidden">
+    <div id="section-gov" class="container mt-5 hidden mb-5">
         <h3 class="text-center mb-4 fw-bold text-secondary">اختر المحافظة <span id="stage-display-text" class="text-primary"></span></h3>
         <div class="row g-3" id="gov-grid"></div>
         <div class="text-center mt-4"><button onclick="goHome()" class="btn btn-secondary btn-back px-5">عودة</button></div>
     </div>
 
-    <div id="section-search" class="container mt-5 hidden">
+    <div id="section-search" class="container mt-5 hidden mb-5">
         <div class="card shadow-sm border-0 mx-auto p-5 text-center" style="max-width: 600px; border-radius: 15px;">
             <h4 class="mb-4 fw-bold" id="search-title">بحث عن النتيجة</h4>
             <div class="input-group input-group-lg mb-3 shadow-sm rounded overflow-hidden">
@@ -103,7 +113,7 @@
         </div>
     </div>
 
-    <div id="section-result" class="container mt-5 hidden">
+    <div id="section-result" class="container mt-5 hidden mb-5">
         <div class="result-wrapper">
             <div class="search-info-bar">
                 أنت تبحث عن رقم جلوس : (<span id="info-seat"></span>) <span id="info-stage"></span> <span id="info-gov"></span>
@@ -128,7 +138,7 @@
         </div>
     </div>
 
-    <div id="section-admin" class="container mt-4 hidden">
+    <div id="section-admin" class="container mt-4 hidden mb-5">
         <div class="card shadow p-4 border-0" style="border-radius: 15px;">
             <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
                 <h4 class="text-success fw-bold"><i class="fas fa-database"></i> الكنترول الذكي</h4>
@@ -173,7 +183,7 @@
         </div>
     </div>
 
-    <div id="section-login" class="container mt-5 hidden text-center">
+    <div id="section-login" class="container mt-5 hidden text-center mb-5">
         <div class="card mx-auto shadow p-4 border-0" style="max-width: 400px; border-radius: 15px;">
             <h4 class="mb-4 fw-bold">دخول الأدمن</h4>
             <form onsubmit="event.preventDefault(); login();" autocomplete="off">
@@ -183,6 +193,12 @@
             </form>
         </div>
     </div>
+
+    <footer>
+        <div class="container">
+            <p class="mb-0">جميع الحقوق محفوظة - نتيجة كنترول الوزارة الرسمي 2026 ©</p>
+        </div>
+    </footer>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
