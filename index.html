@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نتيجة كنترول الوزارة</title>
+    <title>نتيجة كنترول الوزارة الرسمي</title>
     
     <link rel="icon" href="image_12.png" type="image/png">
     <link rel="shortcut icon" href="image_12.png" type="image/png">
@@ -17,56 +17,23 @@
         #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
         .hidden { display: none !important; }
         
-        /* تنسيق الناف بار ليتناسب مع اللوجو الكبير */
         .navbar-custom { background-color: var(--header-bg); padding: 15px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         
         /* تنسيق اللوجو */
         .brand-logo { 
-            color: white; 
-            font-size: 1.8rem; 
-            font-weight: 900; 
-            text-decoration: none; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 5px; 
+            color: white; font-size: 1.8rem; font-weight: 900; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; 
         }
-        
-        .brand-logo img { 
-            height: 85px; 
-            width: auto; 
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); 
-        } 
+        .brand-logo img { height: 85px; width: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); } 
+        @media (max-width: 768px) { .brand-logo { font-size: 1.3rem; } .brand-logo img { height: 65px; } }
 
-        @media (max-width: 768px) {
-            .brand-logo { font-size: 1.3rem; }
-            .brand-logo img { height: 65px; } 
-        }
-
-        /* تنسيقات الكروت الجديدة للمحافظات */
-        .gov-card {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            border: 1px solid #eee;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            height: 100%;
-        }
+        /* كروت المحافظات */
+        .gov-card { background: white; border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: all 0.3s ease; border: 1px solid #eee; cursor: pointer; position: relative; overflow: hidden; height: 100%; }
         .gov-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: var(--primary-green); }
-        
         .gov-icon { font-size: 2.5rem; color: var(--header-bg); margin-bottom: 10px; }
         .gov-name { font-weight: 900; font-size: 1.3rem; margin-bottom: 5px; color: #333; }
-        
         .status-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 15px; }
         .status-available { background-color: #d1e7dd; color: #0f5132; } 
         .status-soon { background-color: #fff3cd; color: #856404; } 
-        
         .student-count { font-size: 0.9rem; color: #777; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 5px; }
         .progress-bar-custom { height: 6px; background: #eee; border-radius: 10px; margin-top: 15px; overflow: hidden; }
         .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary-green), #81c784); border-radius: 10px; }
@@ -77,10 +44,19 @@
         .stage-card { border-radius: 15px; padding: 40px 20px; color: white; text-align: center; cursor: pointer; transition: 0.3s; height: 220px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .card-sec { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
         .card-prep { background: linear-gradient(135deg, #42e695 0%, #3bb2b8 100%); }
+        
+        /* تنسيق صناديق النتيجة (المنفصلة) */
+        .info-wrapper { background: var(--alert-blue); color: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); max-width: 850px; margin: 0 auto 25px; text-align: center; padding: 15px; }
+        .info-wrapper a { color: #fff; text-decoration: underline; font-weight: bold; margin-top: 5px; display: inline-block; }
+
         .result-wrapper { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.15); max-width: 850px; margin: 0 auto; }
+        
+        .congrats-bar { background-color: #eeeeee; color: #333; padding: 12px; text-align: center; font-weight: bold; border-bottom: 1px solid #ddd; }
+        .res-header { background-color: #b71c1c; color: white; padding: 15px; font-size: 1.4rem; font-weight: bold; text-align: center; }
         .table-custom td { padding: 15px; border-bottom: 1px solid #eee; }
         .lbl { background-color: #f8f9fa; font-weight: bold; color: #555; width: 30%; }
         .val { font-weight: bold; font-size: 1.1rem; }
+        
         footer { background-color: var(--header-bg); color: white; text-align: center; padding: 15px 0; margin-top: auto; font-size: 0.9rem; }
     </style>
 </head>
@@ -100,9 +76,7 @@
 
     <div id="section-home" class="container mt-5 text-center mb-5">
         <div class="intro-box mx-auto" style="max-width: 900px;">
-            <p class="intro-text mb-0">
-                نقدم لكـ من خلال <strong>موقع نتيجة كنترول الوزارة</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس، والعديد من الخدمات الأخرى مثل معرفة مجموعك والنسبة المئوية وحالة الطالب ، حيث نقدم نتيجة الصف الثالث الإعدادي لجميع المحافظات.
-            </p>
+            <p class="intro-text mb-0">نقدم لكـ من خلال <strong>موقع نتيجة كنترول الوزارة الرسمي</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس.</p>
         </div>
 
         <h2 class="main-title">اختر المرحلة الدراسية</h2>
@@ -111,14 +85,12 @@
                 <div class="stage-card card-sec" onclick="goToSearchSec()">
                     <i class="fas fa-university stage-icon"></i>
                     <div class="stage-title">الشهادة الثانوية</div>
-                    <small>عرض النتيجة برقم الجلوس</small>
                 </div>
             </div>
             <div class="col-md-5 col-lg-4">
                 <div class="stage-card card-prep" onclick="goToGovs('prep')">
                     <i class="fas fa-school stage-icon"></i>
                     <div class="stage-title">الشهادة الإعدادية</div>
-                    <small>عرض النتائج لجميع المحافظات</small>
                 </div>
             </div>
         </div>
@@ -127,8 +99,7 @@
 
     <div id="section-gov" class="container mt-5 hidden mb-5">
         <h3 class="text-center mb-4 fw-bold text-secondary">حالة ظهور النتائج بالمحافظات</h3>
-        <div class="row g-4" id="gov-grid">
-            </div>
+        <div class="row g-4" id="gov-grid"></div>
         <div class="text-center mt-5"><button onclick="goHome()" class="btn btn-outline-secondary px-5">عودة</button></div>
     </div>
 
@@ -144,13 +115,16 @@
     </div>
 
     <div id="section-result" class="container mt-5 hidden mb-5">
+        
+        <div class="info-wrapper">
+            أنت تبحث عن رقم جلوس : (<span id="info-seat" class="fw-bold text-warning"></span>) <span id="info-stage"></span> <span id="info-gov"></span>
+            <br><a href="#" onclick="goHome()">اضغط هنا للبحث عن نتيجة جديدة</a>
+        </div>
+
         <div class="result-wrapper">
-            <div class="search-info-bar">
-                أنت تبحث عن رقم جلوس : (<span id="info-seat"></span>) <span id="info-stage"></span> <span id="info-gov"></span>
-                <br><a href="#" onclick="goHome()">اضغط هنا للبحث عن نتيجة جديدة</a>
-            </div>
             <div class="congrats-bar">🤩 🥳 ألف مبروك نتيجة الترم الأول 2026 متاحة الآن</div>
             <div class="res-header">بيانات الطالب</div>
+            
             <table class="table table-custom mb-0">
                 <tr><td class="lbl">اسم الطالب</td><td class="val text-primary" id="r-name"></td></tr>
                 <tr><td class="lbl">رقم الجلوس</td><td class="val" id="r-seat"></td></tr>
@@ -161,6 +135,7 @@
                 <tr><td class="lbl">النسبة المئوية</td><td class="val fw-bold" id="r-perc" style="color: #000;"></td></tr>
                 <tr><td class="lbl">حالة الطالب</td><td class="val fw-bold" id="r-status"></td></tr>
             </table>
+            
             <div class="p-4 text-center bg-light border-top">
                 <button onclick="window.print()" class="btn btn-success me-2 px-4"><i class="fas fa-print"></i> طباعة</button>
                 <button onclick="goHome()" class="btn btn-outline-dark px-4">بحث جديد</button>
@@ -272,6 +247,8 @@
         function hideAll() { ['section-home','section-gov','section-search','section-result','section-login','section-admin'].forEach(id=>document.getElementById(id).classList.add('hidden')); }
         function goHome() { hideAll(); document.getElementById('section-home').classList.remove('hidden'); }
         function goToSearchSec() { currentStage = 'sec'; currentGov = 'الجمهورية'; hideAll(); document.getElementById('section-search').classList.remove('hidden'); document.getElementById('search-title').innerText = "نتائج الثانوية العامة"; }
+        function goToGovs(s) { currentStage = s; hideAll(); document.getElementById('section-gov').classList.remove('hidden'); }
+        function selectGov(g) { currentGov = g; hideAll(); document.getElementById('section-search').classList.remove('hidden'); document.getElementById('search-title').innerText = `نتيجة محافظة ${g}`; }
         
         async function goToGovs(s) { 
             currentStage = s; 
@@ -384,9 +361,11 @@
         function renderResult(data) {
             document.getElementById('loading').classList.add('hidden');
             hideAll(); document.getElementById('section-result').classList.remove('hidden');
+            
             document.getElementById('info-seat').innerText = data.seat;
             document.getElementById('info-stage').innerText = (data.stage==='sec')?"الثانوية العامة":"الشهادة الإعدادية";
             document.getElementById('info-gov').innerText = (data.stage==='sec')?"": " - " + data.gov;
+
             document.getElementById('r-name').innerText = data.name;
             document.getElementById('r-seat').innerText = data.seat;
             document.getElementById('r-gov').innerText = data.gov;
@@ -406,12 +385,12 @@
                 adminEditId = res.docs[0].id;
                 const d = res.docs[0].data();
                 document.getElementById('edit-name').value = d.name;
-                document.getElementById('edit-score').value = parseFloat(d.score); 
+                document.getElementById('edit-score').value = parseFloat(d.score);
                 document.getElementById('edit-perc').value = d.perc;
                 document.getElementById('edit-status').value = d.status || "مقبول"; 
                 document.getElementById('edit-area').classList.remove('hidden');
-                autoCalculate(); 
-            } else { alert("هذا الطالب غير موجود."); }
+                autoCalculate();
+            } else { alert("غير موجود"); }
         }
 
         function autoCalculate() {
