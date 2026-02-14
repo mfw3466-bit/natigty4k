@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نتيجة كنترول الوزارة</title>
     
+    <link rel="preload" as="image" href="image_12.png">
+    
     <link rel="icon" href="image_12.png" type="image/png">
     <link rel="shortcut icon" href="image_12.png" type="image/png">
 
@@ -19,14 +21,21 @@
         
         .navbar-custom { background-color: var(--header-bg); padding: 15px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         
-        /* تنسيق اللوجو */
         .brand-logo { 
             color: white; font-size: 1.8rem; font-weight: 900; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; 
         }
-        .brand-logo img { height: 85px; width: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); } 
-        @media (max-width: 768px) { .brand-logo { font-size: 1.3rem; } .brand-logo img { height: 65px; } }
+        
+        .brand-logo img { 
+            height: 85px; 
+            width: auto; 
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); 
+        } 
 
-        /* كروت المحافظات */
+        @media (max-width: 768px) {
+            .brand-logo { font-size: 1.3rem; }
+            .brand-logo img { height: 65px; } 
+        }
+
         .gov-card { background: white; border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: all 0.3s ease; border: 1px solid #eee; cursor: pointer; position: relative; overflow: hidden; height: 100%; }
         .gov-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: var(--primary-green); }
         .gov-icon { font-size: 2.5rem; color: var(--header-bg); margin-bottom: 10px; }
@@ -45,18 +54,28 @@
         .card-sec { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
         .card-prep { background: linear-gradient(135deg, #42e695 0%, #3bb2b8 100%); }
         
-        /* تنسيق صناديق النتيجة (المنفصلة) */
-        .info-wrapper { background: var(--alert-blue); color: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); max-width: 850px; margin: 0 auto 25px; text-align: center; padding: 15px; }
-        .info-wrapper a { color: #fff; text-decoration: underline; font-weight: bold; margin-top: 5px; display: inline-block; }
+        /* ✅ 2. تنسيق الصندوق المنفصل للمعلومات */
+        .info-wrapper { 
+            background: var(--alert-blue); 
+            color: white; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+            max-width: 850px; 
+            margin: 0 auto 25px; /* مسافة 25px تفصله عن النتيجة */
+            text-align: center; 
+            padding: 20px; 
+            border: 1px solid #0a58ca;
+        }
+        .info-wrapper a { color: #fff; text-decoration: underline; font-weight: bold; margin-top: 8px; display: inline-block; font-size: 0.95rem; }
 
         .result-wrapper { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.15); max-width: 850px; margin: 0 auto; }
-        
-        .congrats-bar { background-color: #eeeeee; color: #333; padding: 12px; text-align: center; font-weight: bold; border-bottom: 1px solid #ddd; }
-        .res-header { background-color: #b71c1c; color: white; padding: 15px; font-size: 1.4rem; font-weight: bold; text-align: center; }
         .table-custom td { padding: 15px; border-bottom: 1px solid #eee; }
         .lbl { background-color: #f8f9fa; font-weight: bold; color: #555; width: 30%; }
         .val { font-weight: bold; font-size: 1.1rem; }
-        
+        .congrats-bar { background-color: #eeeeee; color: #333; padding: 12px; text-align: center; font-weight: bold; border-bottom: 1px solid #ddd; }
+        .res-header { background-color: #b71c1c; color: white; padding: 15px; font-size: 1.4rem; font-weight: bold; text-align: center; }
+
         footer { background-color: var(--header-bg); color: white; text-align: center; padding: 15px 0; margin-top: auto; font-size: 0.9rem; }
     </style>
 </head>
@@ -69,7 +88,7 @@
 
     <nav class="navbar-custom text-center">
         <a href="#" class="brand-logo" onclick="goHome()">
-            <img src="image_12.png" alt="شعار">
+            <img src="image_12.png" alt="شعار" fetchpriority="high">
             <span class="mt-2">نتيجة كنترول الوزارة</span>
         </a>
     </nav>
@@ -85,12 +104,14 @@
                 <div class="stage-card card-sec" onclick="goToSearchSec()">
                     <i class="fas fa-university stage-icon"></i>
                     <div class="stage-title">الشهادة الثانوية</div>
+                    <small>عرض النتيجة برقم الجلوس</small>
                 </div>
             </div>
             <div class="col-md-5 col-lg-4">
                 <div class="stage-card card-prep" onclick="goToGovs('prep')">
                     <i class="fas fa-school stage-icon"></i>
                     <div class="stage-title">الشهادة الإعدادية</div>
+                    <small>عرض النتائج لجميع المحافظات</small>
                 </div>
             </div>
         </div>
@@ -118,13 +139,12 @@
         
         <div class="info-wrapper">
             أنت تبحث عن رقم جلوس : (<span id="info-seat" class="fw-bold text-warning"></span>) <span id="info-stage"></span> <span id="info-gov"></span>
-            <br><a href="#" onclick="goHome()">اضغط هنا للبحث عن نتيجة جديدة</a>
+            <br><a href="#" onclick="goHome()"><i class="fas fa-redo"></i> اضغط هنا للبحث عن نتيجة جديدة</a>
         </div>
 
         <div class="result-wrapper">
             <div class="congrats-bar">🤩 🥳 ألف مبروك نتيجة الترم الأول 2026 متاحة الآن</div>
             <div class="res-header">بيانات الطالب</div>
-            
             <table class="table table-custom mb-0">
                 <tr><td class="lbl">اسم الطالب</td><td class="val text-primary" id="r-name"></td></tr>
                 <tr><td class="lbl">رقم الجلوس</td><td class="val" id="r-seat"></td></tr>
@@ -135,7 +155,6 @@
                 <tr><td class="lbl">النسبة المئوية</td><td class="val fw-bold" id="r-perc" style="color: #000;"></td></tr>
                 <tr><td class="lbl">حالة الطالب</td><td class="val fw-bold" id="r-status"></td></tr>
             </table>
-            
             <div class="p-4 text-center bg-light border-top">
                 <button onclick="window.print()" class="btn btn-success me-2 px-4"><i class="fas fa-print"></i> طباعة</button>
                 <button onclick="goHome()" class="btn btn-outline-dark px-4">بحث جديد</button>
@@ -278,7 +297,7 @@
             let badgeClass = status === 'available' ? 'status-available' : 'status-soon';
             let badgeText = status === 'available' ? '• متاح الآن' : '• قريباً';
             
-            // ✅✅ التعديل هنا: إظهار عدد الطلاب الفعلي ✅✅
+            // ✅ تصحيح: إظهار العدد بشكل صحيح
             let countText = status === 'available' ? `<i class="fas fa-user-graduate"></i> ${parseInt(count).toLocaleString()} طالب` : 'جاري الرفع...';
             let percent = status === 'available' ? 100 : 0;
 
@@ -364,10 +383,12 @@
             document.getElementById('loading').classList.add('hidden');
             hideAll(); document.getElementById('section-result').classList.remove('hidden');
             
+            // تعبئة بيانات الصندوق الأول
             document.getElementById('info-seat').innerText = data.seat;
             document.getElementById('info-stage').innerText = (data.stage==='sec')?"الثانوية العامة":"الشهادة الإعدادية";
             document.getElementById('info-gov').innerText = (data.stage==='sec')?"": " - " + data.gov;
 
+            // تعبئة بيانات الصندوق الثاني
             document.getElementById('r-name').innerText = data.name;
             document.getElementById('r-seat').innerText = data.seat;
             document.getElementById('r-gov').innerText = data.gov;
