@@ -9,69 +9,76 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --primary-green: #28a745; --primary-blue: #1e3c72; --header-bg: #004d40; --alert-blue: #0b5ed7; }
-        body { font-family: 'Tajawal', sans-serif; background-color: #f4f7f6; margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
+        body { font-family: 'Tajawal', sans-serif; background-color: #f8f9fa; margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
         #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
         .hidden { display: none !important; }
         
-        /* زيادة ارتفاع الناف بار عشان يستوعب اللوجو الكبير */
-        .navbar-custom { background-color: var(--header-bg); padding: 15px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        /* تنسيق الناف بار ليتناسب مع اللوجو الكبير */
+        .navbar-custom { background-color: var(--header-bg); padding: 15px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         
-        /* --- تنسيق اللوجو والعنوان (تعديل جديد) --- */
+        /* تنسيق اللوجو (كما طلبت) */
         .brand-logo { 
             color: white; 
             font-size: 1.8rem; 
             font-weight: 900; 
             text-decoration: none; 
             display: flex; 
-            flex-direction: column; /* جعل الصورة فوق النص */
+            flex-direction: column; /* الصورة فوق النص */
             align-items: center; 
             justify-content: center; 
             gap: 5px; 
         }
         
-        /* تكبير حجم اللوجو في الكمبيوتر */
         .brand-logo img { 
-            height: 85px; /* تكبير ملحوظ */
+            height: 85px; /* كبير للكمبيوتر */
             width: auto; 
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); /* ظل خفيف للصورة */
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); 
         } 
 
-        /* تنسيق الموبايل */
         @media (max-width: 768px) {
             .brand-logo { font-size: 1.3rem; }
-            .brand-logo img { height: 65px; } /* تكبير اللوجو في الموبايل */
+            .brand-logo img { height: 65px; } /* أصغر للموبايل */
         }
 
-        .main-title { color: #555; font-weight: 700; margin-bottom: 30px; font-size: 1.8rem; }
+        /* --- تنسيقات الكروت الجديدة للمحافظات --- */
+        .gov-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        .gov-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: var(--primary-green); }
         
+        .gov-icon { font-size: 2.5rem; color: var(--header-bg); margin-bottom: 10px; }
+        .gov-name { font-weight: 900; font-size: 1.3rem; margin-bottom: 5px; color: #333; }
+        
+        .status-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 15px; }
+        .status-available { background-color: #d1e7dd; color: #0f5132; } 
+        .status-soon { background-color: #fff3cd; color: #856404; } 
+        
+        .student-count { font-size: 0.9rem; color: #777; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .progress-bar-custom { height: 6px; background: #eee; border-radius: 10px; margin-top: 15px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary-green), #81c784); border-radius: 10px; }
+
+        /* باقي التنسيقات */
+        .main-title { color: #555; font-weight: 700; margin-bottom: 30px; font-size: 1.8rem; }
         .intro-box { background: white; border-radius: 12px; padding: 25px; margin-bottom: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }
         .intro-text { color: #666; line-height: 1.8; font-size: 1.05rem; }
-
         .stage-card { border-radius: 15px; padding: 40px 20px; color: white; text-align: center; cursor: pointer; transition: 0.3s; height: 220px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .card-sec { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
         .card-prep { background: linear-gradient(135deg, #42e695 0%, #3bb2b8 100%); }
-        .stage-card:hover { transform: translateY(-5px); }
-        .stage-icon { font-size: 4rem; margin-bottom: 15px; }
-        .gov-btn { background: white; border: none; border-radius: 8px; padding: 15px; font-weight: 700; color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.2s; width: 100%; }
-        .gov-btn:hover { background-color: var(--header-bg); color: white; }
-        .search-info-bar { background-color: var(--alert-blue); color: white; padding: 15px; text-align: center; font-size: 1.1rem; }
-        .search-info-bar a { color: #fff; text-decoration: underline; font-weight: bold; margin-top: 5px; display: inline-block; }
-        .congrats-bar { background-color: #eeeeee; color: #333; padding: 12px; text-align: center; font-weight: bold; border-bottom: 1px solid #ddd; }
         .result-wrapper { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.15); max-width: 850px; margin: 0 auto; }
-        .res-header { background-color: #b71c1c; color: white; padding: 15px; font-size: 1.4rem; font-weight: bold; text-align: center; }
         .table-custom td { padding: 15px; border-bottom: 1px solid #eee; }
         .lbl { background-color: #f8f9fa; font-weight: bold; color: #555; width: 30%; }
         .val { font-weight: bold; font-size: 1.1rem; }
-        .btn-back { margin-top: 20px; border-radius: 20px; padding: 8px 25px; }
-
-        footer {
-            background-color: var(--header-bg);
-            color: white;
-            text-align: center;
-            padding: 15px 0;
-            margin-top: auto; 
-            font-size: 0.9rem;
-        }
+        footer { background-color: var(--header-bg); color: white; text-align: center; padding: 15px 0; margin-top: auto; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -89,10 +96,9 @@
     </nav>
 
     <div id="section-home" class="container mt-5 text-center mb-5">
-        
         <div class="intro-box mx-auto" style="max-width: 900px;">
             <p class="intro-text mb-0">
-                نقدم لكـ من خلال <strong>موقع الامتحان التعليمى</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس، والعديد من الخدمات الأخرى مثل معرفة درجات المواد ومجموعك والنسبة المئوية وحالة الطالب وترتيبك والحصول على شهادة تقدير مميزة من الامتحان التعليمي حيث نقدم نتيجة الصف الثالث الإعدادي لجميع المحافظات.
+                نقدم لكـ من خلال <strong>موقع الامتحان التعليمى</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس، والعديد من الخدمات الأخرى مثل معرفة درجات المواد ومجموعك والنسبة المئوية وحالة الطالب وترتيبك حيث نقدم نتيجة الصف الثالث الإعدادي لجميع المحافظات.
             </p>
         </div>
 
@@ -113,15 +119,14 @@
                 </div>
             </div>
         </div>
-        <div class="mt-5">
-            <button onclick="showLogin()" class="btn btn-link text-muted small" style="text-decoration: none;"><i class="fas fa-lock"></i> دخول الكنترول</button>
-        </div>
+        <div class="mt-5"><button onclick="showLogin()" class="btn btn-link text-muted small"><i class="fas fa-lock"></i> دخول الكنترول</button></div>
     </div>
 
     <div id="section-gov" class="container mt-5 hidden mb-5">
-        <h3 class="text-center mb-4 fw-bold text-secondary">اختر المحافظة <span id="stage-display-text" class="text-primary"></span></h3>
-        <div class="row g-3" id="gov-grid"></div>
-        <div class="text-center mt-4"><button onclick="goHome()" class="btn btn-secondary btn-back px-5">عودة</button></div>
+        <h3 class="text-center mb-4 fw-bold text-secondary">حالة ظهور النتائج بالمحافظات</h3>
+        <div class="row g-4" id="gov-grid">
+            </div>
+        <div class="text-center mt-5"><button onclick="goHome()" class="btn btn-outline-secondary px-5">عودة</button></div>
     </div>
 
     <div id="section-search" class="container mt-5 hidden mb-5">
@@ -166,42 +171,58 @@
                 <h4 class="text-success fw-bold"><i class="fas fa-database"></i> الكنترول الذكي</h4>
                 <button onclick="logout()" class="btn btn-danger btn-sm rounded-pill px-3">خروج</button>
             </div>
-            <div class="bg-light p-4 rounded border mb-4">
-                <h5 class="text-primary fw-bold mb-3">بحث وتعديل الطالب</h5>
-                <div class="input-group mb-3">
-                    <input type="text" id="admin-edit-seat" class="form-control" placeholder="رقم الجلوس..." autocomplete="off">
-                    <button onclick="fetchForEdit()" class="btn btn-primary px-4">جلب البيانات</button>
-                </div>
-                
-                <div id="edit-area" class="row g-3 hidden p-3 border rounded bg-white mt-3 shadow-sm">
-                    <div class="col-md-6">
-                        <label class="small fw-bold">الاسم</label>
-                        <input type="text" id="edit-name" class="form-control">
+            
+            <ul class="nav nav-tabs mb-4">
+                <li class="nav-item"><button class="nav-link active fw-bold" onclick="showAdminTab('students')">تعديل الطلاب</button></li>
+                <li class="nav-item"><button class="nav-link fw-bold" onclick="showAdminTab('govs')">إدارة المحافظات</button></li>
+            </ul>
+
+            <div id="admin-tab-students">
+                <div class="bg-light p-4 rounded border mb-4">
+                    <h5 class="text-primary fw-bold mb-3">بحث وتعديل طالب</h5>
+                    <div class="input-group mb-3">
+                        <input type="text" id="admin-edit-seat" class="form-control" placeholder="رقم الجلوس..." autocomplete="off">
+                        <button onclick="fetchForEdit()" class="btn btn-primary px-4">جلب</button>
                     </div>
-                    <div class="col-md-3">
-                        <label class="small fw-bold">المجموع</label>
-                        <input type="number" id="edit-score" class="form-control" oninput="autoCalculate()">
-                    </div>
-                    <div class="col-md-3">
-                        <label class="small fw-bold">النسبة</label>
-                        <input type="text" id="edit-perc" class="form-control bg-light" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="small fw-bold">حالة الطالب</label>
-                        <select id="edit-status" class="form-select">
-                            <option value="ممتاز">ممتاز</option>
-                            <option value="جيد جدا">جيد جداً</option>
-                            <option value="جيد">جيد</option>
-                            <option value="مقبول">مقبول</option>
-                            <option value="دون المستوى">دون المستوى</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 d-flex align-items-end">
-                        <button onclick="saveAdminChanges()" class="btn btn-success w-100 fw-bold">حفظ التعديلات</button>
+                    <div id="edit-area" class="row g-3 hidden p-3 border rounded bg-white mt-3 shadow-sm">
+                        <div class="col-md-6"><label class="small fw-bold">الاسم</label><input type="text" id="edit-name" class="form-control"></div>
+                        <div class="col-md-3"><label class="small fw-bold">المجموع</label><input type="number" id="edit-score" class="form-control" oninput="autoCalculate()"></div>
+                        <div class="col-md-3"><label class="small fw-bold">النسبة</label><input type="text" id="edit-perc" class="form-control bg-light" readonly></div>
+                        <div class="col-md-6"><label class="small fw-bold">الحالة</label><select id="edit-status" class="form-select"><option>ممتاز</option><option>جيد جدا</option><option>جيد</option><option>مقبول</option><option>دون المستوى</option></select></div>
+                        <div class="col-md-6 d-flex align-items-end"><button onclick="saveAdminChanges()" class="btn btn-success w-100 fw-bold">حفظ</button></div>
                     </div>
                 </div>
             </div>
-            <div class="text-center"><button onclick="goHome()" class="btn btn-outline-secondary">العودة للرئيسية</button></div>
+
+            <div id="admin-tab-govs" class="hidden">
+                <div class="bg-light p-4 rounded border">
+                    <h5 class="text-primary fw-bold mb-3">إعدادات المحافظات (يدوي)</h5>
+                    <div class="alert alert-info small">ملاحظة: السكريبت الآلي يحدث الحالة كل ساعة. يمكنك التعديل اليدوي هنا للطوارئ.</div>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="small fw-bold">المحافظة</label>
+                            <select id="adm-gov-select" class="form-select" onchange="loadGovSettings()">
+                                <option value="">-- اختر --</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="small fw-bold">الحالة</label>
+                            <select id="adm-gov-status" class="form-select">
+                                <option value="available">متاح (أخضر)</option>
+                                <option value="soon">قريباً (أصفر)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="small fw-bold">عدد الطلاب</label>
+                            <input type="number" id="adm-gov-count" class="form-control">
+                        </div>
+                        <div class="col-md-12 text-center mt-3">
+                            <button onclick="saveGovSettings()" class="btn btn-success fw-bold px-5">حفظ الإعدادات</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -237,76 +258,129 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        const governorates = ["القاهرة", "الجيزة", "الإسكندرية", "الدقهلية", "الشرقية", "المنوفية", "القليوبية", "البحيرة", "الغربية", "بور سعيد", "دمياط", "الإسماعيلية", "السويس", "الفيوم", "بني سويف", "المنيا", "أسيوط", "سوهاج", "قنا", "الأقصر", "أسوان", "مطروح", "الوادي الجديد", "البحر الأحمر", "شمال سيناء", "جنوب سيناء"];
+        const govList = ["القاهرة", "الجيزة", "الإسكندرية", "الدقهلية", "الشرقية", "المنوفية", "القليوبية", "البحيرة", "الغربية", "بور سعيد", "دمياط", "الإسماعيلية", "السويس", "الفيوم", "بني سويف", "المنيا", "أسيوط", "سوهاج", "قنا", "الأقصر", "أسوان", "مطروح", "الوادي الجديد", "البحر الأحمر", "شمال سيناء", "جنوب سيناء"];
         let currentStage = '', currentGov = '', adminEditId = '';
 
         window.onload = function() {
-            const grid = document.getElementById('gov-grid');
-            governorates.forEach(gov => {
-                grid.innerHTML += `<div class="col-6 col-md-4 col-lg-3"><button onclick="selectGov('${gov}')" class="gov-btn border shadow-sm">${gov}</button></div>`;
-            });
+            // تعبئة قائمة المحافظات في الكنترول
+            const sel = document.getElementById('adm-gov-select');
+            govList.forEach(g => { sel.innerHTML += `<option value="${g}">${g}</option>`; });
         };
 
         function hideAll() { ['section-home','section-gov','section-search','section-result','section-login','section-admin'].forEach(id=>document.getElementById(id).classList.add('hidden')); }
         function goHome() { hideAll(); document.getElementById('section-home').classList.remove('hidden'); }
         function goToSearchSec() { currentStage = 'sec'; currentGov = 'الجمهورية'; hideAll(); document.getElementById('section-search').classList.remove('hidden'); document.getElementById('search-title').innerText = "نتائج الثانوية العامة"; }
-        function goToGovs(s) { currentStage = s; hideAll(); document.getElementById('section-gov').classList.remove('hidden'); }
-        function selectGov(g) { currentGov = g; hideAll(); document.getElementById('section-search').classList.remove('hidden'); document.getElementById('search-title').innerText = `نتيجة محافظة ${g}`; }
         
-        function showLogin() { 
+        // --- الكود المسؤول عن عرض الكروت (Grid) ---
+        async function goToGovs(s) { 
+            currentStage = s; 
             hideAll(); 
-            document.getElementById('section-login').classList.remove('hidden'); 
-            document.getElementById('adm-user').value = '';
-            document.getElementById('adm-pass').value = '';
-        }
-        
-        function logout() { 
-            goHome(); 
-            document.getElementById('adm-user').value = '';
-            document.getElementById('adm-pass').value = '';
+            document.getElementById('section-gov').classList.remove('hidden');
+            const grid = document.getElementById('gov-grid');
+            grid.innerHTML = '<div class="text-center w-100"><div class="spinner-border text-success"></div><br>جاري تحميل حالة المحافظات...</div>';
+            
+            const snap = await db.collection("gov_status").get();
+            grid.innerHTML = "";
+            
+            if(snap.empty) {
+                // لو مفيش داتا، اعرضهم كلهم "قريباً"
+                govList.forEach(g => renderCard(grid, g, 'soon', 0));
+                return;
+            }
+
+            // ترتيب: المتاح يظهر الأول
+            let govs = [];
+            snap.forEach(doc => govs.push(doc.data()));
+            govs.sort((a, b) => (a.status === 'available' ? -1 : 1));
+
+            govs.forEach(g => {
+                renderCard(grid, g.name, g.status, g.count || 0);
+            });
         }
 
-        // تسجيل الدخول
+        function renderCard(container, name, status, count) {
+            let badgeClass = status === 'available' ? 'status-available' : 'status-soon';
+            let badgeText = status === 'available' ? '• متاح الآن' : '• قريباً';
+            let countText = status === 'available' ? `<i class="fas fa-check-circle"></i> النتيجة ظهرت` : 'جاري الرفع...';
+            let percent = status === 'available' ? 100 : 0;
+
+            let card = `
+            <div class="col-md-6 col-lg-3">
+                <div class="gov-card" onclick="selectGov('${name}', '${status}')">
+                    <div class="gov-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="gov-name">محافظة ${name}</div>
+                    <div class="status-badge ${badgeClass}">${badgeText}</div>
+                    <div class="student-count text-muted">${countText}</div>
+                    <div class="progress-bar-custom">
+                        <div class="progress-fill" style="width: ${percent}%"></div>
+                    </div>
+                </div>
+            </div>`;
+            container.innerHTML += card;
+        }
+
+        function selectGov(g, status) { 
+            if(status === 'soon') { alert("عذراً، النتيجة لم تظهر في هذه المحافظة بعد."); return; }
+            currentGov = g; 
+            hideAll(); 
+            document.getElementById('section-search').classList.remove('hidden'); 
+            document.getElementById('search-title').innerText = `نتيجة محافظة ${g}`; 
+        }
+
+        function showLogin() { hideAll(); document.getElementById('section-login').classList.remove('hidden'); }
+        function logout() { goHome(); }
         function login() { 
-            const u = document.getElementById('adm-user').value;
-            const p = document.getElementById('adm-pass').value;
-            // يمكنك تغيير البيانات هنا
-            if(u === 'a' && p === '00') { 
-                hideAll(); 
-                document.getElementById('section-admin').classList.remove('hidden'); 
-            } else {
-                alert("بيانات الدخول خاطئة!");
+            if(document.getElementById('adm-user').value === 'a' && document.getElementById('adm-pass').value === '00') { 
+                hideAll(); document.getElementById('section-admin').classList.remove('hidden'); 
+            } else { alert('بيانات خاطئة'); } 
+        }
+
+        // --- وظائف الكنترول ---
+        function showAdminTab(tab) {
+            document.getElementById('admin-tab-students').classList.add('hidden');
+            document.getElementById('admin-tab-govs').classList.add('hidden');
+            document.getElementById(`admin-tab-${tab}`).classList.remove('hidden');
+        }
+
+        async function loadGovSettings() {
+            const name = document.getElementById('adm-gov-select').value;
+            if(!name) return;
+            const doc = await db.collection("gov_status").doc(name).get();
+            if(doc.exists) {
+                const d = doc.data();
+                document.getElementById('adm-gov-status').value = d.status;
+                document.getElementById('adm-gov-count').value = d.count || 0;
             }
         }
 
+        async function saveGovSettings() {
+            const name = document.getElementById('adm-gov-select').value;
+            if(!name) return;
+            await db.collection("gov_status").doc(name).set({
+                name: name,
+                status: document.getElementById('adm-gov-status').value,
+                count: document.getElementById('adm-gov-count').value
+            }, { merge: true });
+            alert("تم حفظ إعدادات المحافظة");
+        }
+
+        // --- البحث العادي ---
         async function searchSmart() {
             const seat = document.getElementById('search-input').value.trim();
             if(!seat) return;
             document.getElementById('loading').classList.remove('hidden');
-            document.getElementById('loading-text').innerText = "جاري البحث...";
-
+            
             const snap = await db.collection("results").where("stage","==",currentStage).where("gov","==",currentGov).where("seat","==",seat).get();
-            if(!snap.empty) {
-                renderResult(snap.docs[0].data());
-                return;
-            }
+            if(!snap.empty) { renderResult(snap.docs[0].data()); return; }
 
-            document.getElementById('loading-text').innerText = "جاري جلب النتيجة (انتظر قليلاً)...";
             await db.collection("scraping_orders").add({ gov: currentGov, seat: seat, timestamp: new Date() });
-
+            
             let attempts = 0;
             const timer = setInterval(async () => {
                 attempts++;
                 const check = await db.collection("results").where("gov","==",currentGov).where("seat","==",seat).get();
-                if(!check.empty) {
-                    clearInterval(timer);
-                    renderResult(check.docs[0].data());
-                }
-                if(attempts > 12) {
-                    clearInterval(timer);
-                    document.getElementById('loading').classList.add('hidden');
-                    alert("رقم الجلوس غير صحيح");
-                }
+                if(!check.empty) { clearInterval(timer); renderResult(check.docs[0].data()); }
+                if(attempts > 12) { clearInterval(timer); document.getElementById('loading').classList.add('hidden'); alert("رقم الجلوس غير صحيح أو النتيجة لم تظهر بعد"); }
             }, 3000);
         }
 
@@ -347,30 +421,25 @@
             const score = parseFloat(document.getElementById('edit-score').value) || 0;
             const max = 140;
             const percVal = (score / max) * 100;
-            
             document.getElementById('edit-perc').value = percVal.toFixed(2) + " %";
-
             let status = "دون المستوى";
             if (percVal >= 85) status = "ممتاز";
             else if (percVal >= 75) status = "جيد جدا";
             else if (percVal >= 65) status = "جيد";
             else if (percVal >= 50) status = "مقبول";
-
             document.getElementById('edit-status').value = status;
         }
 
         async function saveAdminChanges() {
             const score = parseFloat(document.getElementById('edit-score').value);
             const formattedScore = score.toFixed(2); 
-            
             await db.collection("results").doc(adminEditId).update({
                 name: document.getElementById('edit-name').value,
                 score: formattedScore,
                 perc: document.getElementById('edit-perc').value,
                 status: document.getElementById('edit-status').value
             });
-            alert("تم الحفظ بنجاح!");
-            document.getElementById('edit-area').classList.add('hidden');
+            alert("تم الحفظ بنجاح!"); document.getElementById('edit-area').classList.add('hidden');
         }
     </script>
 </body>
