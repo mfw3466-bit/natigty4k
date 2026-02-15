@@ -6,35 +6,19 @@
     <title>نتيجة كنترول الوزارة</title>
     
     <link rel="preload" as="image" href="image_12.png">
-    
     <link rel="icon" href="image_12.png" type="image/png">
     <link rel="shortcut icon" href="image_12.png" type="image/png">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary-green: #28a745; --primary-blue: #1e3c72; --header-bg: #004d40; --alert-blue: #0b5ed7; }
+        :root { --primary-green: #28a745; --primary-blue: #1e3c72; --header-bg: #004d40; --alert-blue: #0b5ed7; --table-red: #a71d2a; }
         body { font-family: 'Tajawal', sans-serif; background-color: #f8f9fa; margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
-        #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
         .hidden { display: none !important; }
-        
         .navbar-custom { background-color: var(--header-bg); padding: 15px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        
-        .brand-logo { 
-            color: white; font-size: 1.8rem; font-weight: 900; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; 
-        }
-        
-        .brand-logo img { 
-            height: 85px; 
-            width: auto; 
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); 
-        } 
-
-        @media (max-width: 768px) {
-            .brand-logo { font-size: 1.3rem; }
-            .brand-logo img { height: 65px; } 
-        }
+        .brand-logo { color: white; font-size: 1.8rem; font-weight: 900; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+        .brand-logo img { height: 85px; width: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); } 
+        @media (max-width: 768px) { .brand-logo { font-size: 1.3rem; } .brand-logo img { height: 65px; } }
 
         .gov-card { background: white; border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: all 0.3s ease; border: 1px solid #eee; cursor: pointer; position: relative; overflow: hidden; height: 100%; }
         .gov-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: var(--primary-green); }
@@ -43,28 +27,36 @@
         .status-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 15px; }
         .status-available { background-color: #d1e7dd; color: #0f5132; } 
         .status-soon { background-color: #fff3cd; color: #856404; } 
-        .student-count { font-size: 0.9rem; color: #777; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 5px; }
         .progress-bar-custom { height: 6px; background: #eee; border-radius: 10px; margin-top: 15px; overflow: hidden; }
         .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary-green), #81c784); border-radius: 10px; }
 
-        .main-title { color: #555; font-weight: 700; margin-bottom: 30px; font-size: 1.8rem; }
-        .intro-box { background: white; border-radius: 12px; padding: 25px; margin-bottom: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }
-        .intro-text { color: #666; line-height: 1.8; font-size: 1.05rem; }
         .stage-card { border-radius: 15px; padding: 40px 20px; color: white; text-align: center; cursor: pointer; transition: 0.3s; height: 220px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .card-sec { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
         .card-prep { background: linear-gradient(135deg, #42e695 0%, #3bb2b8 100%); }
-        
+
         .info-wrapper { background: var(--alert-blue); color: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); max-width: 850px; margin: 0 auto 25px; text-align: center; padding: 20px; border: 1px solid #0a58ca; }
         .info-wrapper a { color: #fff; text-decoration: underline; font-weight: bold; margin-top: 8px; display: inline-block; font-size: 0.95rem; }
+        
+        .result-wrapper { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.15); max-width: 850px; margin: 0 auto; border: 1px solid #ddd; }
+        .congrats-bar { background-color: #f8f9fa; color: #333; padding: 12px; text-align: center; font-weight: bold; border-bottom: 1px solid #ddd; }
+        
+        .table-custom td { padding: 12px 15px; border-bottom: 1px solid #eee; font-size: 1.05rem; }
+        .lbl { background-color: #fff; font-weight: 800; color: #000; width: 30%; text-align: right; }
+        .val { font-weight: bold; font-size: 1.1rem; color: #222; text-align: right; }
 
-        .result-wrapper { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.15); max-width: 850px; margin: 0 auto; }
-        .table-custom td { padding: 15px; border-bottom: 1px solid #eee; }
-        .lbl { background-color: #f8f9fa; font-weight: bold; color: #555; width: 30%; }
-        .val { font-weight: bold; font-size: 1.1rem; }
-        .congrats-bar { background-color: #eeeeee; color: #333; padding: 12px; text-align: center; font-weight: bold; border-bottom: 1px solid #ddd; }
-        .res-header { background-color: #b71c1c; color: white; padding: 15px; font-size: 1.4rem; font-weight: bold; text-align: center; }
+        /* تنسيق جدول الدرجات التفصيلي */
+        .grades-header { background-color: var(--table-red); color: white; padding: 10px; font-weight: bold; text-align: center; font-size: 1.2rem; }
+        .grades-subheader { background-color: #e9ecef; color: #333; padding: 8px; text-align: center; font-weight: bold; border-bottom: 1px solid #ddd; border-top: 1px solid #ddd; }
+        
+        .table-grades { width: 100%; border-collapse: collapse; text-align: center; }
+        .table-grades th { background-color: #f8f9fa; padding: 10px; border: 1px solid #ddd; font-weight: bold; }
+        .table-grades td { padding: 10px; border: 1px solid #ddd; font-weight: bold; font-size: 1.1rem; }
+        
+        /* تمييز صف مجموع الرياضيات */
+        .math-total-row { background-color: #fff3cd !important; }
 
         footer { background-color: var(--header-bg); color: white; text-align: center; padding: 15px 0; margin-top: auto; font-size: 0.9rem; }
+        #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
     </style>
 </head>
 <body>
@@ -77,28 +69,27 @@
     <nav class="navbar-custom text-center">
         <a href="#" class="brand-logo" onclick="goHome()">
             <img src="image_12.png" alt="شعار" fetchpriority="high">
-            <span class="mt-2">نتيجة كنترول الوزارة الرسمي</span>
+            <span class="mt-2">نتيجة كنترول الوزارة</span>
         </a>
     </nav>
 
     <div id="section-home" class="container mt-5 text-center mb-5">
-        <div class="intro-box mx-auto" style="max-width: 900px;">
-            <p class="intro-text mb-0">نقدم لكـ من خلال <strong>موقع نتيجة كنترول الوزارة الرسمي</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس.</p>
+        <div class="intro-box mx-auto" style="max-width: 900px; background:white; padding:20px; border-radius:12px; border:1px solid #eee; margin-bottom:30px;">
+            <p class="intro-text mb-0">نقدم لكـ من خلال <strong>موقع نتيجة كنترول الوزارة</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس.</p>
         </div>
-
-        <h2 class="main-title">اختر المرحلة الدراسية</h2>
+        <h2 class="main-title text-secondary fw-bold mb-4">اختر المرحلة الدراسية</h2>
         <div class="row justify-content-center g-4">
             <div class="col-md-5 col-lg-4">
                 <div class="stage-card card-sec" onclick="goToSearchSec()">
-                    <i class="fas fa-university stage-icon"></i>
-                    <div class="stage-title">الشهادة الثانوية</div>
+                    <i class="fas fa-university fa-3x mb-3"></i>
+                    <div class="fs-4 fw-bold">الشهادة الثانوية</div>
                     <small>عرض النتيجة برقم الجلوس</small>
                 </div>
             </div>
             <div class="col-md-5 col-lg-4">
                 <div class="stage-card card-prep" onclick="goToGovs('prep')">
-                    <i class="fas fa-school stage-icon"></i>
-                    <div class="stage-title">الشهادة الإعدادية</div>
+                    <i class="fas fa-school fa-3x mb-3"></i>
+                    <div class="fs-4 fw-bold">الشهادة الإعدادية</div>
                     <small>عرض النتائج لجميع المحافظات</small>
                 </div>
             </div>
@@ -131,7 +122,7 @@
 
         <div class="result-wrapper">
             <div class="congrats-bar">🤩 🥳 ألف مبروك نتيجة الترم الأول 2026 متاحة الآن</div>
-            <div class="res-header">بيانات الطالب</div>
+            <div class="text-center text-white py-2 fw-bold fs-5" style="background-color: #b71c1c;">بيانات الطالب</div>
             <table class="table table-custom mb-0">
                 <tr><td class="lbl">اسم الطالب</td><td class="val text-primary" id="r-name"></td></tr>
                 <tr><td class="lbl">رقم الجلوس</td><td class="val" id="r-seat"></td></tr>
@@ -139,15 +130,25 @@
                 <tr><td class="lbl">المدرسة</td><td class="val text-secondary" id="r-school"></td></tr>
                 <tr><td class="lbl">المجموع</td><td class="val fw-bold text-dark" id="r-score"></td></tr>
                 <tr><td class="lbl">المجموع الكلي</td><td class="val text-success" id="r-max"></td></tr>
-                <tr><td class="lbl">النسبة المئوية</td><td class="val fw-bold" id="r-perc" style="color: #000;"></td></tr>
+                <tr><td class="lbl">النسبة المئوية</td><td class="val fw-bold" id="r-perc"></td></tr>
                 <tr><td class="lbl">حالة الطالب</td><td class="val fw-bold" id="r-status"></td></tr>
             </table>
-            
-            <div id="subjects-table-container" class="hidden">
-                <div class="res-header" style="background:#1e3c72; margin-top:10px;">درجات المواد</div>
-                <table class="table table-custom mb-0 text-center">
-                    <thead class="table-light"><tr><th>المادة</th><th>الدرجة</th><th>العظمى</th></tr></thead>
-                    <tbody id="subjects-body"></tbody>
+
+            <div id="subjects-table-container">
+                <div class="grades-header">درجات المواد</div>
+                
+                <div class="grades-subheader">أولاً مواد تُضاف للمجموع</div>
+                <table class="table-grades">
+                    <thead><tr><th>الدرجة النهائية</th><th>درجة الطالب</th><th>المادة</th></tr></thead>
+                    <tbody id="subjects-added-body">
+                        </tbody>
+                </table>
+
+                <div class="grades-subheader">ثانياً مواد لا تُضاف للمجموع</div>
+                <table class="table-grades">
+                    <thead><tr><th>الدرجة النهائية</th><th>درجة الطالب</th><th>المادة</th></tr></thead>
+                    <tbody id="subjects-not-added-body">
+                        </tbody>
                 </table>
             </div>
 
@@ -161,7 +162,7 @@
     <div id="section-admin" class="container mt-4 hidden mb-5">
         <div class="card shadow p-4 border-0" style="border-radius: 15px;">
             <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-                <h4 class="text-success fw-bold"><i class="fas fa-database"></i> الكنترول الذكي</h4>
+                <h4 class="text-success fw-bold">الكنترول الذكي</h4>
                 <button onclick="logout()" class="btn btn-danger btn-sm rounded-pill px-3">خروج</button>
             </div>
             
@@ -183,19 +184,24 @@
                             <div class="col-md-6"><label class="small fw-bold">الاسم</label><input type="text" id="edit-name" class="form-control"></div>
                             
                             <div class="col-md-3">
-                                <label class="small fw-bold text-success">المجموع الكلي (للتوزيع)</label>
+                                <label class="small fw-bold text-success">المجموع (140)</label>
                                 <input type="number" id="edit-score" class="form-control border-success border-2 fw-bold" oninput="autoDistribute()">
                             </div>
-                            
                             <div class="col-md-3"><label class="small fw-bold">النسبة</label><input type="text" id="edit-perc" class="form-control bg-light" readonly></div>
                             
-                            <div class="col-12"><hr><h6>توزيع الدرجات (تلقائي)</h6></div>
+                            <div class="col-12"><hr><h6>المواد الأساسية (تلقائي)</h6></div>
                             <div class="col-md-2 col-4"><label class="small">عربي (40)</label><input type="number" id="sub-arabic" class="form-control text-center" readonly></div>
                             <div class="col-md-2 col-4"><label class="small">إنجليزي (30)</label><input type="number" id="sub-english" class="form-control text-center" readonly></div>
                             <div class="col-md-2 col-4"><label class="small">دراسات (20)</label><input type="number" id="sub-studies" class="form-control text-center" readonly></div>
-                            <div class="col-md-2 col-4"><label class="small">رياضة (30)</label><input type="number" id="sub-math" class="form-control text-center" readonly></div>
+                            <div class="col-md-2 col-4"><label class="small">جبر (15)</label><input type="number" id="sub-algebra" class="form-control text-center" readonly></div>
+                            <div class="col-md-2 col-4"><label class="small">هندسة (15)</label><input type="number" id="sub-geometry" class="form-control text-center" readonly></div>
                             <div class="col-md-2 col-4"><label class="small">علوم (20)</label><input type="number" id="sub-science" class="form-control text-center" readonly></div>
                             
+                            <div class="col-12"><hr><h6>المواد الفرعية</h6></div>
+                            <div class="col-md-4"><label class="small">دين (20)</label><input type="number" id="sub-religion" class="form-control text-center"></div>
+                            <div class="col-md-4"><label class="small">فنية (10)</label><input type="number" id="sub-art" class="form-control text-center"></div>
+                            <div class="col-md-4"><label class="small">حاسب (10)</label><input type="number" id="sub-computer" class="form-control text-center"></div>
+
                             <div class="col-md-6 mt-4"><label class="small fw-bold">الحالة</label><select id="edit-status" class="form-select"><option>ممتاز</option><option>جيد جدا</option><option>جيد</option><option>مقبول</option><option>دون المستوى</option><option>دور ثان</option></select></div>
                             <div class="col-md-6 mt-4 d-flex align-items-end"><button onclick="saveAdminChanges()" class="btn btn-success w-100 fw-bold">حفظ التعديلات</button></div>
                         </div>
@@ -205,7 +211,7 @@
 
             <div id="admin-tab-govs" class="hidden">
                 <div class="bg-light p-4 rounded border">
-                    <h5 class="text-primary fw-bold mb-3">إعدادات المحافظات (يدوي)</h5>
+                    <h5 class="text-primary fw-bold mb-3">إعدادات المحافظات</h5>
                     <div class="row g-3">
                         <div class="col-md-4"><label class="small fw-bold">المحافظة</label><select id="adm-gov-select" class="form-select" onchange="loadGovSettings()"><option value="">-- اختر --</option></select></div>
                         <div class="col-md-4"><label class="small fw-bold">الحالة</label><select id="adm-gov-status" class="form-select"><option value="available">متاح</option><option value="soon">قريباً</option></select></div>
@@ -256,7 +262,7 @@
         }
         function showLogin() { hideAll(); document.getElementById('section-login').classList.remove('hidden'); }
         function logout() { goHome(); }
-        function login() { if(document.getElementById('adm-user').value === 'a' && document.getElementById('adm-pass').value === '00') { hideAll(); document.getElementById('section-admin').classList.remove('hidden'); } else { alert('خطأ'); } }
+        function login() { if(document.getElementById('adm-user').value === 'a' && document.getElementById('adm-pass').value === '00') { hideAll(); document.getElementById('section-admin').classList.remove('hidden'); } else { alert('بيانات خاطئة'); } }
         function showAdminTab(tab) { document.getElementById('admin-tab-students').classList.add('hidden'); document.getElementById('admin-tab-govs').classList.add('hidden'); document.getElementById(`admin-tab-${tab}`).classList.remove('hidden'); }
 
         async function goToGovsLogic() {
@@ -293,6 +299,7 @@
             }, 3000);
         }
 
+        // دالة عرض النتيجة (معدلة لتبني الجدول التفصيلي)
         function renderResult(data) {
             document.getElementById('loading').classList.add('hidden');
             hideAll(); document.getElementById('section-result').classList.remove('hidden');
@@ -300,7 +307,6 @@
             document.getElementById('info-seat').innerText = data.seat;
             document.getElementById('info-stage').innerText = (data.stage==='sec')?"الثانوية العامة":"الشهادة الإعدادية";
             document.getElementById('info-gov').innerText = (data.stage==='sec')?"": " - " + data.gov;
-
             document.getElementById('r-name').innerText = data.name;
             document.getElementById('r-seat').innerText = data.seat;
             document.getElementById('r-gov').innerText = data.gov;
@@ -312,22 +318,27 @@
             document.getElementById('r-perc').innerText = data.perc || "-";
             document.getElementById('r-status').innerText = data.status || "-";
 
-            // عرض جدول المواد إذا توفرت
-            const subTable = document.getElementById('subjects-table-container');
-            const subBody = document.getElementById('subjects-body');
-            subBody.innerHTML = "";
+            // بناء الجدول
+            const addedBody = document.getElementById('subjects-added-body');
+            const notAddedBody = document.getElementById('subjects-not-added-body');
+            addedBody.innerHTML = "";
+            notAddedBody.innerHTML = "";
             
-            if (data.subjects) {
-                const mapSub = { 'arabic': ['اللغة العربية', 40], 'english': ['اللغة الإنجليزية', 30], 'studies': ['الدراسات', 20], 'math': ['الرياضيات', 30], 'science': ['العلوم', 20] };
-                for (const [key, val] of Object.entries(data.subjects)) {
-                    if(mapSub[key]) {
-                        subBody.innerHTML += `<tr><td>${mapSub[key][0]}</td><td class="fw-bold text-primary">${val}</td><td>${mapSub[key][1]}</td></tr>`;
-                    }
-                }
-                subTable.classList.remove('hidden');
-            } else {
-                subTable.classList.add('hidden');
-            }
+            const s = data.subjects || {};
+            const mathTotal = (parseFloat(s.algebra || 0) + parseFloat(s.geometry || 0)).toFixed(2);
+
+            // إضافة الصفوف بنفس الترتيب المطلوب
+            addedBody.innerHTML += `<tr><td>40.00</td><td>${s.arabic || 0}</td><td>اللغة العربية</td></tr>`;
+            addedBody.innerHTML += `<tr><td>30.00</td><td>${s.english || 0}</td><td>اللغة الإنجليزية</td></tr>`;
+            addedBody.innerHTML += `<tr><td>20.00</td><td>${s.studies || 0}</td><td>الدراسات الاجتماعية</td></tr>`;
+            addedBody.innerHTML += `<tr><td>15.00</td><td>${s.algebra || 0}</td><td>الجبر</td></tr>`;
+            addedBody.innerHTML += `<tr><td>15.00</td><td>${s.geometry || 0}</td><td>الهندسة</td></tr>`;
+            addedBody.innerHTML += `<tr class="math-total-row"><td>30.00</td><td>${mathTotal}</td><td>مجموع الرياضيات</td></tr>`;
+            addedBody.innerHTML += `<tr><td>20.00</td><td>${s.science || 0}</td><td>العلوم</td></tr>`;
+
+            notAddedBody.innerHTML += `<tr><td>20.00</td><td>${s.religion || 0}</td><td>التربية الدينية</td></tr>`;
+            notAddedBody.innerHTML += `<tr><td>10.00</td><td>${s.art || 0}</td><td>التربية الفنية</td></tr>`;
+            notAddedBody.innerHTML += `<tr><td>10.00</td><td>${s.computer || 0}</td><td>الحاسب الآلي</td></tr>`;
         }
 
         async function fetchForEdit() {
@@ -345,19 +356,21 @@
                 document.getElementById('sub-arabic').value = subs.arabic || 0;
                 document.getElementById('sub-english').value = subs.english || 0;
                 document.getElementById('sub-studies').value = subs.studies || 0;
-                document.getElementById('sub-math').value = subs.math || 0;
+                document.getElementById('sub-algebra').value = subs.algebra || 0;
+                document.getElementById('sub-geometry').value = subs.geometry || 0;
                 document.getElementById('sub-science').value = subs.science || 0;
+                document.getElementById('sub-religion').value = subs.religion || 18;
+                document.getElementById('sub-art').value = subs.art || 9;
+                document.getElementById('sub-computer').value = subs.computer || 9;
 
                 document.getElementById('edit-area').classList.remove('hidden');
             } else { alert("غير موجود"); }
         }
 
-        // 🧠 خوارزمية التوزيع الذكي للدرجات
         function autoDistribute() {
             let total = parseFloat(document.getElementById('edit-score').value) || 0;
             if (total > 140) total = 140; 
             
-            // حساب النسبة والحالة
             const percVal = (total / 140) * 100;
             document.getElementById('edit-perc').value = percVal.toFixed(2) + " %";
             let status = "دون المستوى";
@@ -368,28 +381,24 @@
             else status = "دور ثان";
             document.getElementById('edit-status').value = status;
 
-            // منطق التوزيع
-            const maxScores = { arabic: 40, english: 30, studies: 20, math: 30, science: 20 };
-            const minScores = { arabic: 20, english: 15, studies: 10, math: 15, science: 10 };
+            const maxScores = { arabic: 40, english: 30, studies: 20, algebra: 15, geometry: 15, science: 20 };
+            const minScores = { arabic: 20, english: 15, studies: 10, algebra: 7.5, geometry: 7.5, science: 10 };
             
-            let distributed = { arabic: 0, english: 0, studies: 0, math: 0, science: 0 };
+            let distributed = { arabic: 0, english: 0, studies: 0, algebra: 0, geometry: 0, science: 0 };
 
             if (total >= 70) {
-                // لو ناجح: ندي الحد الأدنى الأول
                 let remaining = total;
                 for (let k in minScores) {
                     distributed[k] = minScores[k];
                     remaining -= minScores[k];
                 }
-                // نوزع الباقي بنسبة وتناسب
-                const distributableRange = 70; // 140 - 70
+                const distributableRange = 70; 
                 for (let k in maxScores) {
                     let weight = (maxScores[k] - minScores[k]) / distributableRange;
                     let extra = remaining * weight;
                     distributed[k] += extra;
                 }
             } else {
-                // لو راسب: نوزع من الصفر
                 for (let k in maxScores) {
                     distributed[k] = (maxScores[k] / 140) * total;
                 }
@@ -401,7 +410,8 @@
             document.getElementById('sub-arabic').value = scores.arabic.toFixed(1);
             document.getElementById('sub-english').value = scores.english.toFixed(1);
             document.getElementById('sub-studies').value = scores.studies.toFixed(1);
-            document.getElementById('sub-math').value = scores.math.toFixed(1);
+            document.getElementById('sub-algebra').value = scores.algebra.toFixed(1);
+            document.getElementById('sub-geometry').value = scores.geometry.toFixed(1);
             document.getElementById('sub-science').value = scores.science.toFixed(1);
         }
 
@@ -411,8 +421,12 @@
                 arabic: parseFloat(document.getElementById('sub-arabic').value),
                 english: parseFloat(document.getElementById('sub-english').value),
                 studies: parseFloat(document.getElementById('sub-studies').value),
-                math: parseFloat(document.getElementById('sub-math').value),
-                science: parseFloat(document.getElementById('sub-science').value)
+                algebra: parseFloat(document.getElementById('sub-algebra').value),
+                geometry: parseFloat(document.getElementById('sub-geometry').value),
+                science: parseFloat(document.getElementById('sub-science').value),
+                religion: parseFloat(document.getElementById('sub-religion').value),
+                art: parseFloat(document.getElementById('sub-art').value),
+                computer: parseFloat(document.getElementById('sub-computer').value)
             };
 
             await db.collection("results").doc(adminEditId).update({
@@ -422,7 +436,7 @@
                 status: document.getElementById('edit-status').value,
                 subjects: subjects
             });
-            alert("تم الحفظ وتوزيع الدرجات بنجاح!"); document.getElementById('edit-area').classList.add('hidden');
+            alert("تم الحفظ!"); document.getElementById('edit-area').classList.add('hidden');
         }
         
         async function loadGovSettings() {
