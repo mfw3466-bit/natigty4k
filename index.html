@@ -52,7 +52,6 @@
         .table-grades td { padding: 10px; border: 1px solid #ddd; font-weight: bold; font-size: 1.1rem; }
         .math-total-row { background-color: #fff3cd !important; }
 
-        /* جعل الفوتر يبدو كنص عادي وغير قابل للنقر ظاهرياً */
         footer { background-color: var(--header-bg); color: white; text-align: center; padding: 15px 0; margin-top: auto; font-size: 0.9rem; cursor: default; user-select: none; }
         
         #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
@@ -68,13 +67,13 @@
     <nav class="navbar-custom text-center">
         <a href="#" class="brand-logo" onclick="goHome()">
             <img src="image_12.png" alt="شعار" fetchpriority="high">
-            <span class="mt-2">نتيجة كنترول الوزارة</span>
+            <span class="mt-2">نتيجة كنترول الوزارة الرسمي</span>
         </a>
     </nav>
 
     <div id="section-home" class="container mt-5 text-center mb-5">
         <div class="intro-box mx-auto" style="max-width: 900px; background:white; padding:20px; border-radius:12px; border:1px solid #eee; margin-bottom:30px;">
-            <p class="intro-text mb-0">نقدم لكـ من خلال <strong>موقع نتيجة كنترول الوزارة</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس.</p>
+            <p class="intro-text mb-0">نقدم لكـ من خلال <strong>موقع نتيجة كنترول الوزارة الرسمي</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس.</p>
         </div>
         <h2 class="main-title text-secondary fw-bold mb-4">اختر المرحلة الدراسية</h2>
         <div class="row justify-content-center g-4">
@@ -93,7 +92,7 @@
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 
     <div id="section-gov" class="container mt-5 hidden mb-5">
         <h3 class="text-center mb-4 fw-bold text-secondary">حالة ظهور النتائج بالمحافظات</h3>
@@ -170,9 +169,18 @@
             <div id="admin-tab-students">
                 <div class="bg-light p-4 rounded border mb-4">
                     <h5 class="text-primary fw-bold mb-3">بحث وتعديل طالب</h5>
-                    <div class="input-group mb-3">
-                        <input type="text" id="admin-edit-seat" class="form-control" placeholder="رقم الجلوس..." autocomplete="off">
-                        <button onclick="fetchForEdit()" class="btn btn-primary px-4">جلب</button>
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-4">
+                            <select id="admin-edit-gov-select" class="form-select">
+                                <option value="">-- اختر المحافظة --</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="admin-edit-seat" class="form-control" placeholder="رقم الجلوس..." autocomplete="off">
+                        </div>
+                        <div class="col-md-2">
+                            <button onclick="fetchForEdit()" class="btn btn-primary w-100">جلب</button>
+                        </div>
                     </div>
                     
                     <div id="edit-area" class="hidden">
@@ -232,7 +240,7 @@
 
     <footer onclick="secretTrigger()">
         <div class="container">
-            <p class="mb-0">جميع الحقوق محفوظة - نتيجة كنترول الوزارة 2026 ©</p>
+            <p class="mb-0">جميع الحقوق محفوظة - نتيجة كنترول الوزارة الرسمي 2026 ©</p>
         </div>
     </footer>
 
@@ -247,20 +255,23 @@
         const govList = ["القاهرة", "الجيزة", "الإسكندرية", "الدقهلية", "الشرقية", "المنوفية", "القليوبية", "البحيرة", "الغربية", "بور سعيد", "دمياط", "الإسماعيلية", "السويس", "الفيوم", "بني سويف", "المنيا", "أسيوط", "سوهاج", "قنا", "الأقصر", "أسوان", "مطروح", "الوادي الجديد", "البحر الأحمر", "شمال سيناء", "جنوب سيناء"];
         let currentStage = '', currentGov = '', adminEditId = '';
         
-        // متغيرات الباب السري
         let secretClicks = 0;
         let secretTimer;
 
         window.onload = function() {
             const sel = document.getElementById('adm-gov-select');
-            govList.forEach(g => { sel.innerHTML += `<option value="${g}">${g}</option>`; });
+            const editSel = document.getElementById('admin-edit-gov-select');
+            
+            govList.forEach(g => { 
+                sel.innerHTML += `<option value="${g}">${g}</option>`;
+                editSel.innerHTML += `<option value="${g}">${g}</option>`;
+            });
         };
 
-        // دالة الباب السري
         function secretTrigger() {
             secretClicks++;
             clearTimeout(secretTimer);
-            secretTimer = setTimeout(() => { secretClicks = 0; }, 2000); // تصفير العداد لو وقف ضغط لمدة ثانيتين
+            secretTimer = setTimeout(() => { secretClicks = 0; }, 2000);
             if(secretClicks >= 5) {
                 showLogin();
                 secretClicks = 0;
@@ -355,8 +366,17 @@
         }
 
         async function fetchForEdit() {
-            const s = document.getElementById('admin-edit-seat').value;
-            const res = await db.collection("results").where("seat","==",s).get();
+            const s = document.getElementById('admin-edit-seat').value.trim();
+            const g = document.getElementById('admin-edit-gov-select').value;
+            
+            if(!s || !g) { alert("من فضلك اختر المحافظة وأدخل رقم الجلوس"); return; }
+
+            // البحث برقم الجلوس والمحافظة معاً لضمان الدقة
+            const res = await db.collection("results")
+                .where("seat", "==", s)
+                .where("gov", "==", g)
+                .get();
+
             if(!res.empty) {
                 adminEditId = res.docs[0].id;
                 const d = res.docs[0].data();
@@ -377,7 +397,7 @@
                 document.getElementById('sub-computer').value = subs.computer || 9;
 
                 document.getElementById('edit-area').classList.remove('hidden');
-            } else { alert("غير موجود"); }
+            } else { alert("هذا الطالب غير موجود في هذه المحافظة."); }
         }
 
         function autoDistribute() {
