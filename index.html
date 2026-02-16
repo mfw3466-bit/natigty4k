@@ -51,7 +51,37 @@
         .table-grades th { background-color: #f8f9fa; padding: 10px; border: 1px solid #ddd; font-weight: bold; }
         .table-grades td { padding: 10px; border: 1px solid #ddd; font-weight: bold; font-size: 1.1rem; }
         .math-total-row { background-color: #fff3cd !important; }
-
+        /* تنسيق زر التيليجرام */
+        .btn-telegram {
+            background-color: #2da5e1; /* لون تيليجرام */
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-telegram:hover {
+            background-color: #1d8abf;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(45, 165, 225, 0.3);
+        } 
+        .telegram-link-small {
+            color: #2da5e1;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .telegram-link-small:hover {
+            color: #1d8abf;
+            text-decoration: underline;
+        }
+        /* جعل الفوتر يبدو كنص عادي وغير قابل للنقر ظاهرياً */
         footer { background-color: var(--header-bg); color: white; text-align: center; padding: 15px 0; margin-top: auto; font-size: 0.9rem; cursor: default; user-select: none; }
         
         #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
@@ -73,8 +103,12 @@
 
     <div id="section-home" class="container mt-5 text-center mb-5">
         <div class="intro-box mx-auto" style="max-width: 900px; background:white; padding:20px; border-radius:12px; border:1px solid #eee; margin-bottom:30px;">
-            <p class="intro-text mb-0">نقدم لكـ من خلال <strong>كنترول وزارة التربية والتعليم</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس.</p>
-        </div>
+    <p class="intro-text mb-3">نقدم لكـ من خلال <strong>موقع كنترول وزارة التربية والتعليم</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس.</p>
+    
+    <a href="https://t.me/m_m_qt" target="_blank" class="btn btn-telegram rounded-pill px-4 py-2 fw-bold">
+        <i class="fab fa-telegram-plane fa-lg"></i> اشترك في قناة التيليجرام
+    </a>
+</div>
         <h2 class="main-title text-secondary fw-bold mb-4">اختر المرحلة الدراسية</h2>
         <div class="row justify-content-center g-4">
             <div class="col-md-5 col-lg-4">
@@ -92,7 +126,7 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
 
     <div id="section-gov" class="container mt-5 hidden mb-5">
         <h3 class="text-center mb-4 fw-bold text-secondary">حالة ظهور النتائج بالمحافظات</h3>
@@ -100,16 +134,20 @@
         <div class="text-center mt-5"><button onclick="goHome()" class="btn btn-outline-secondary px-5">عودة</button></div>
     </div>
 
-    <div id="section-search" class="container mt-5 hidden mb-5">
-        <div class="card shadow-sm border-0 mx-auto p-5 text-center" style="max-width: 600px; border-radius: 15px;">
-            <h4 class="mb-4 fw-bold" id="search-title">بحث عن النتيجة</h4>
-            <div class="input-group input-group-lg mb-3 shadow-sm rounded overflow-hidden">
-                <span class="input-group-text bg-white border-0"><i class="fas fa-search text-muted"></i></span>
-                <input type="text" id="search-input" class="form-control border-0 bg-light text-center" placeholder="أدخل رقم الجلوس..." autocomplete="off">
-            </div>
-            <button onclick="searchSmart()" class="btn btn-primary w-100 py-3 fw-bold fs-5">عرض النتيجة</button>
+<div id="section-search" class="container mt-5 hidden mb-5">
+    <div class="card shadow-sm border-0 mx-auto p-5 text-center" style="max-width: 600px; border-radius: 15px;">
+        <h4 class="mb-4 fw-bold" id="search-title">بحث عن النتيجة</h4>
+        <div class="input-group input-group-lg mb-3 shadow-sm rounded overflow-hidden">
+            <span class="input-group-text bg-white border-0"><i class="fas fa-search text-muted"></i></span>
+            <input type="text" id="search-input" class="form-control border-0 bg-light text-center" placeholder="أدخل رقم الجلوس..." autocomplete="off">
         </div>
+        <button onclick="searchSmart()" class="btn btn-primary w-100 py-3 fw-bold fs-5">عرض النتيجة</button>
+        
+        <a href="https://t.me/YOUR_CHANNEL_LINK" target="_blank" class="telegram-link-small">
+            <i class="fab fa-telegram-plane"></i> تابعنا على تيليجرام لتصلك النتيجة فوراً
+        </a>
     </div>
+</div>
 
     <div id="section-result" class="container mt-5 hidden mb-5">
         <div class="info-wrapper">
@@ -169,18 +207,9 @@
             <div id="admin-tab-students">
                 <div class="bg-light p-4 rounded border mb-4">
                     <h5 class="text-primary fw-bold mb-3">بحث وتعديل طالب</h5>
-                    <div class="row g-2 mb-3">
-                        <div class="col-md-4">
-                            <select id="admin-edit-gov-select" class="form-select">
-                                <option value="">-- اختر المحافظة --</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" id="admin-edit-seat" class="form-control" placeholder="رقم الجلوس..." autocomplete="off">
-                        </div>
-                        <div class="col-md-2">
-                            <button onclick="fetchForEdit()" class="btn btn-primary w-100">جلب</button>
-                        </div>
+                    <div class="input-group mb-3">
+                        <input type="text" id="admin-edit-seat" class="form-control" placeholder="رقم الجلوس..." autocomplete="off">
+                        <button onclick="fetchForEdit()" class="btn btn-primary px-4">جلب</button>
                     </div>
                     
                     <div id="edit-area" class="hidden">
@@ -240,7 +269,7 @@
 
     <footer onclick="secretTrigger()">
         <div class="container">
-            <p class="mb-0">جميع الحقوق محفوظة - كنترول وزارة التربية والتعليم 2026 ©</p>
+            <p class="mb-0">جميع الحقوق محفوظة - نتيجة كنترول الوزارة 2026 ©</p>
         </div>
     </footer>
 
@@ -255,23 +284,20 @@
         const govList = ["القاهرة", "الجيزة", "الإسكندرية", "الدقهلية", "الشرقية", "المنوفية", "القليوبية", "البحيرة", "الغربية", "بور سعيد", "دمياط", "الإسماعيلية", "السويس", "الفيوم", "بني سويف", "المنيا", "أسيوط", "سوهاج", "قنا", "الأقصر", "أسوان", "مطروح", "الوادي الجديد", "البحر الأحمر", "شمال سيناء", "جنوب سيناء"];
         let currentStage = '', currentGov = '', adminEditId = '';
         
+        // متغيرات الباب السري
         let secretClicks = 0;
         let secretTimer;
 
         window.onload = function() {
             const sel = document.getElementById('adm-gov-select');
-            const editSel = document.getElementById('admin-edit-gov-select');
-            
-            govList.forEach(g => { 
-                sel.innerHTML += `<option value="${g}">${g}</option>`;
-                editSel.innerHTML += `<option value="${g}">${g}</option>`;
-            });
+            govList.forEach(g => { sel.innerHTML += `<option value="${g}">${g}</option>`; });
         };
 
+        // دالة الباب السري
         function secretTrigger() {
             secretClicks++;
             clearTimeout(secretTimer);
-            secretTimer = setTimeout(() => { secretClicks = 0; }, 2000);
+            secretTimer = setTimeout(() => { secretClicks = 0; }, 2000); // تصفير العداد لو وقف ضغط لمدة ثانيتين
             if(secretClicks >= 5) {
                 showLogin();
                 secretClicks = 0;
@@ -366,17 +392,8 @@
         }
 
         async function fetchForEdit() {
-            const s = document.getElementById('admin-edit-seat').value.trim();
-            const g = document.getElementById('admin-edit-gov-select').value;
-            
-            if(!s || !g) { alert("من فضلك اختر المحافظة وأدخل رقم الجلوس"); return; }
-
-            // البحث برقم الجلوس والمحافظة معاً لضمان الدقة
-            const res = await db.collection("results")
-                .where("seat", "==", s)
-                .where("gov", "==", g)
-                .get();
-
+            const s = document.getElementById('admin-edit-seat').value;
+            const res = await db.collection("results").where("seat","==",s).get();
             if(!res.empty) {
                 adminEditId = res.docs[0].id;
                 const d = res.docs[0].data();
@@ -397,7 +414,7 @@
                 document.getElementById('sub-computer').value = subs.computer || 9;
 
                 document.getElementById('edit-area').classList.remove('hidden');
-            } else { alert("هذا الطالب غير موجود في هذه المحافظة."); }
+            } else { alert("غير موجود"); }
         }
 
         function autoDistribute() {
