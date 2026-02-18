@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كنترول وزارة التربية والتعليم</title>
+    <title>نتيجة كنترول الوزارة</title>
     
     <link rel="preload" as="image" href="image_12.png">
     <link rel="icon" href="image_12.png" type="image/png">
@@ -51,39 +51,13 @@
         .table-grades th { background-color: #f8f9fa; padding: 10px; border: 1px solid #ddd; font-weight: bold; }
         .table-grades td { padding: 10px; border: 1px solid #ddd; font-weight: bold; font-size: 1.1rem; }
         .math-total-row { background-color: #fff3cd !important; }
-        /* تنسيق زر التيليجرام */
-        .btn-telegram {
-            background-color: #2da5e1; /* لون تيليجرام */
-            color: white;
-            border: none;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .btn-telegram:hover {
-            background-color: #1d8abf;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(45, 165, 225, 0.3);
-        } 
-        .telegram-link-small {
-            color: #2da5e1;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin-top: 15px;
-            display: inline-block;
-            transition: 0.3s;
-        }
-        .telegram-link-small:hover {
-            color: #1d8abf;
-            text-decoration: underline;
-        }
-        /* جعل الفوتر يبدو كنص عادي وغير قابل للنقر ظاهرياً */
-        footer { background-color: var(--header-bg); color: white; text-align: center; padding: 15px 0; margin-top: auto; font-size: 0.9rem; cursor: default; user-select: none; }
         
+        .btn-telegram { background-color: #2da5e1; color: white; border: none; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-telegram:hover { background-color: #1d8abf; color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(45, 165, 225, 0.3); } 
+        .telegram-link-small { color: #2da5e1; font-weight: bold; text-decoration: none; font-size: 0.9rem; margin-top: 15px; display: inline-block; transition: 0.3s; }
+        .telegram-link-small:hover { color: #1d8abf; text-decoration: underline; }
+        
+        footer { background-color: var(--header-bg); color: white; text-align: center; padding: 15px 0; margin-top: auto; font-size: 0.9rem; cursor: default; user-select: none; }
         #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
     </style>
 </head>
@@ -97,18 +71,17 @@
     <nav class="navbar-custom text-center">
         <a href="#" class="brand-logo" onclick="goHome()">
             <img src="image_12.png" alt="شعار" fetchpriority="high">
-            <span class="mt-2">كنترول وزارة التربية والتعليم</span>
+            <span class="mt-2">نتيجة كنترول الوزارة</span>
         </a>
     </nav>
 
     <div id="section-home" class="container mt-5 text-center mb-5">
         <div class="intro-box mx-auto" style="max-width: 900px; background:white; padding:20px; border-radius:12px; border:1px solid #eee; margin-bottom:30px;">
-    <p class="intro-text mb-3">نقدم لكـ من خلال <strong>موقع كنترول وزارة التربية والتعليم</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس.</p>
-    
-    <a href="https://t.me/m_m_qt" target="_blank" class="btn btn-telegram rounded-pill px-4 py-2 fw-bold">
-        <i class="fab fa-telegram-plane fa-lg"></i> اشترك في قناة التيليجرام
-    </a>
-</div>
+            <p class="intro-text mb-3">نقدم لكـ من خلال <strong>موقع كنترول وزارة التربية والتعليم</strong> نتيجة <span class="text-success fw-bold">الشهادة الإعدادية</span> و <span class="text-primary fw-bold">الشهادة الثانوية</span> بالاسم فقط أو الاستعلام برقم الجلوس.</p>
+            <a href="https://t.me/m_m_qt" target="_blank" class="btn btn-telegram rounded-pill px-4 py-2 fw-bold">
+                <i class="fab fa-telegram-plane fa-lg"></i> اشترك في قناة التيليجرام
+            </a>
+        </div>
         <h2 class="main-title text-secondary fw-bold mb-4">اختر المرحلة الدراسية</h2>
         <div class="row justify-content-center g-4">
             <div class="col-md-5 col-lg-4">
@@ -126,7 +99,7 @@
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 
     <div id="section-gov" class="container mt-5 hidden mb-5">
         <h3 class="text-center mb-4 fw-bold text-secondary">حالة ظهور النتائج بالمحافظات</h3>
@@ -134,27 +107,25 @@
         <div class="text-center mt-5"><button onclick="goHome()" class="btn btn-outline-secondary px-5">عودة</button></div>
     </div>
 
-<div id="section-search" class="container mt-5 hidden mb-5">
-    <div class="card shadow-sm border-0 mx-auto p-5 text-center" style="max-width: 600px; border-radius: 15px;">
-        <h4 class="mb-4 fw-bold" id="search-title">بحث عن النتيجة</h4>
-        <div class="input-group input-group-lg mb-3 shadow-sm rounded overflow-hidden">
-            <span class="input-group-text bg-white border-0"><i class="fas fa-search text-muted"></i></span>
-            <input type="text" id="search-input" class="form-control border-0 bg-light text-center" placeholder="أدخل رقم الجلوس..." autocomplete="off">
+    <div id="section-search" class="container mt-5 hidden mb-5">
+        <div class="card shadow-sm border-0 mx-auto p-5 text-center" style="max-width: 600px; border-radius: 15px;">
+            <h4 class="mb-4 fw-bold" id="search-title">بحث عن النتيجة</h4>
+            <div class="input-group input-group-lg mb-3 shadow-sm rounded overflow-hidden">
+                <span class="input-group-text bg-white border-0"><i class="fas fa-search text-muted"></i></span>
+                <input type="text" id="search-input" class="form-control border-0 bg-light text-center" placeholder="أدخل رقم الجلوس..." autocomplete="off">
+            </div>
+            <button onclick="searchSmart()" class="btn btn-primary w-100 py-3 fw-bold fs-5">عرض النتيجة</button>
+            <a href="https://t.me/m_m_qt" target="_blank" class="telegram-link-small">
+                <i class="fab fa-telegram-plane"></i> تابعنا على تيليجرام لتصلك النتيجة فوراً
+            </a>
         </div>
-        <button onclick="searchSmart()" class="btn btn-primary w-100 py-3 fw-bold fs-5">عرض النتيجة</button>
-        
-        <a href="https://t.me/YOUR_CHANNEL_LINK" target="_blank" class="telegram-link-small">
-            <i class="fab fa-telegram-plane"></i> تابعنا على تيليجرام لتصلك النتيجة فوراً
-        </a>
     </div>
-</div>
 
     <div id="section-result" class="container mt-5 hidden mb-5">
         <div class="info-wrapper">
             أنت تبحث عن رقم جلوس : (<span id="info-seat" class="fw-bold text-warning"></span>) <span id="info-stage"></span> <span id="info-gov"></span>
             <br><a href="#" onclick="goHome()"><i class="fas fa-redo"></i> اضغط هنا للبحث عن نتيجة جديدة</a>
         </div>
-
         <div class="result-wrapper">
             <div class="congrats-bar">🤩 🥳 ألف مبروك نتيجة الترم الأول 2026 متاحة الآن</div>
             <div class="text-center text-white py-2 fw-bold fs-5" style="background-color: #b71c1c;">بيانات الطالب</div>
@@ -168,23 +139,19 @@
                 <tr><td class="lbl">النسبة المئوية</td><td class="val fw-bold" id="r-perc"></td></tr>
                 <tr><td class="lbl">حالة الطالب</td><td class="val fw-bold" id="r-status"></td></tr>
             </table>
-
             <div id="subjects-table-container">
                 <div class="grades-header">درجات المواد</div>
-                
                 <div class="grades-subheader">أولاً مواد تُضاف للمجموع</div>
                 <table class="table-grades">
                     <thead><tr><th>الدرجة النهائية</th><th>درجة الطالب</th><th>المادة</th></tr></thead>
                     <tbody id="subjects-added-body"></tbody>
                 </table>
-
                 <div class="grades-subheader">ثانياً مواد لا تُضاف للمجموع</div>
                 <table class="table-grades">
                     <thead><tr><th>الدرجة النهائية</th><th>درجة الطالب</th><th>المادة</th></tr></thead>
                     <tbody id="subjects-not-added-body"></tbody>
                 </table>
             </div>
-
             <div class="p-4 text-center bg-light border-top">
                 <button onclick="window.print()" class="btn btn-success me-2 px-4"><i class="fas fa-print"></i> طباعة</button>
                 <button onclick="goHome()" class="btn btn-outline-dark px-4">بحث جديد</button>
@@ -198,7 +165,6 @@
                 <h4 class="text-success fw-bold">الكنترول الذكي</h4>
                 <button onclick="logout()" class="btn btn-danger btn-sm rounded-pill px-3">خروج</button>
             </div>
-            
             <ul class="nav nav-tabs mb-4">
                 <li class="nav-item"><button class="nav-link active fw-bold" onclick="showAdminTab('students')">تعديل الطلاب</button></li>
                 <li class="nav-item"><button class="nav-link fw-bold" onclick="showAdminTab('govs')">إدارة المحافظات</button></li>
@@ -207,34 +173,43 @@
             <div id="admin-tab-students">
                 <div class="bg-light p-4 rounded border mb-4">
                     <h5 class="text-primary fw-bold mb-3">بحث وتعديل طالب</h5>
-                    <div class="input-group mb-3">
-                        <input type="text" id="admin-edit-seat" class="form-control" placeholder="رقم الجلوس..." autocomplete="off">
-                        <button onclick="fetchForEdit()" class="btn btn-primary px-4">جلب</button>
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-4">
+                            <select id="admin-search-gov" class="form-select"></select>
+                        </div>
+                        <div class="col-md-3">
+                            <select id="admin-search-stage" class="form-select">
+                                <option value="prep">إعدادية</option>
+                                <option value="sec">ثانوية</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" id="admin-edit-seat" class="form-control" placeholder="رقم الجلوس...">
+                        </div>
+                        <div class="col-md-2">
+                            <button onclick="fetchForEdit()" class="btn btn-primary w-100">جلب</button>
+                        </div>
                     </div>
                     
                     <div id="edit-area" class="hidden">
                         <div class="row g-3 p-3 border rounded bg-white mt-3 shadow-sm">
                             <div class="col-md-6"><label class="small fw-bold">الاسم</label><input type="text" id="edit-name" class="form-control"></div>
-                            
                             <div class="col-md-3">
                                 <label class="small fw-bold text-success">المجموع (140)</label>
                                 <input type="number" id="edit-score" class="form-control border-success border-2 fw-bold" oninput="autoDistribute()">
                             </div>
                             <div class="col-md-3"><label class="small fw-bold">النسبة</label><input type="text" id="edit-perc" class="form-control bg-light" readonly></div>
-                            
-                            <div class="col-12"><hr><h6>المواد الأساسية (تلقائي)</h6></div>
-                            <div class="col-md-2 col-4"><label class="small">عربي (40)</label><input type="number" id="sub-arabic" class="form-control text-center" readonly></div>
-                            <div class="col-md-2 col-4"><label class="small">إنجليزي (30)</label><input type="number" id="sub-english" class="form-control text-center" readonly></div>
-                            <div class="col-md-2 col-4"><label class="small">دراسات (20)</label><input type="number" id="sub-studies" class="form-control text-center" readonly></div>
-                            <div class="col-md-2 col-4"><label class="small">جبر (15)</label><input type="number" id="sub-algebra" class="form-control text-center" readonly></div>
-                            <div class="col-md-2 col-4"><label class="small">هندسة (15)</label><input type="number" id="sub-geometry" class="form-control text-center" readonly></div>
-                            <div class="col-md-2 col-4"><label class="small">علوم (20)</label><input type="number" id="sub-science" class="form-control text-center" readonly></div>
-                            
+                            <div class="col-12"><hr><h6>المواد الأساسية</h6></div>
+                            <div class="col-md-2 col-4"><label class="small">عربي (40)</label><input type="number" id="sub-arabic" class="form-control text-center"></div>
+                            <div class="col-md-2 col-4"><label class="small">إنجليزي (30)</label><input type="number" id="sub-english" class="form-control text-center"></div>
+                            <div class="col-md-2 col-4"><label class="small">دراسات (20)</label><input type="number" id="sub-studies" class="form-control text-center"></div>
+                            <div class="col-md-2 col-4"><label class="small">جبر (15)</label><input type="number" id="sub-algebra" class="form-control text-center"></div>
+                            <div class="col-md-2 col-4"><label class="small">هندسة (15)</label><input type="number" id="sub-geometry" class="form-control text-center"></div>
+                            <div class="col-md-2 col-4"><label class="small">علوم (20)</label><input type="number" id="sub-science" class="form-control text-center"></div>
                             <div class="col-12"><hr><h6>المواد الفرعية</h6></div>
                             <div class="col-md-4"><label class="small">دين (20)</label><input type="number" id="sub-religion" class="form-control text-center"></div>
                             <div class="col-md-4"><label class="small">فنية (10)</label><input type="number" id="sub-art" class="form-control text-center"></div>
                             <div class="col-md-4"><label class="small">حاسب (10)</label><input type="number" id="sub-computer" class="form-control text-center"></div>
-
                             <div class="col-md-6 mt-4"><label class="small fw-bold">الحالة</label><select id="edit-status" class="form-select"><option>ممتاز</option><option>جيد جدا</option><option>جيد</option><option>مقبول</option><option>دون المستوى</option><option>دور ثان</option></select></div>
                             <div class="col-md-6 mt-4 d-flex align-items-end"><button onclick="saveAdminChanges()" class="btn btn-success w-100 fw-bold">حفظ التعديلات</button></div>
                         </div>
@@ -246,7 +221,7 @@
                 <div class="bg-light p-4 rounded border">
                     <h5 class="text-primary fw-bold mb-3">إعدادات المحافظات</h5>
                     <div class="row g-3">
-                        <div class="col-md-4"><label class="small fw-bold">المحافظة</label><select id="adm-gov-select" class="form-select" onchange="loadGovSettings()"><option value="">-- اختر --</option></select></div>
+                        <div class="col-md-4"><label class="small fw-bold">المحافظة</label><select id="adm-gov-select" class="form-select" onchange="loadGovSettings()"></select></div>
                         <div class="col-md-4"><label class="small fw-bold">الحالة</label><select id="adm-gov-status" class="form-select"><option value="available">متاح</option><option value="soon">قريباً</option></select></div>
                         <div class="col-md-4"><label class="small fw-bold">عدد الطلاب</label><input type="number" id="adm-gov-count" class="form-control"></div>
                         <div class="col-md-12 text-center mt-3"><button onclick="saveGovSettings()" class="btn btn-success fw-bold px-5">حفظ</button></div>
@@ -260,17 +235,15 @@
         <div class="card mx-auto shadow p-4 border-0" style="max-width: 400px; border-radius: 15px;">
             <h4 class="mb-4 fw-bold">دخول الأدمن</h4>
             <form onsubmit="event.preventDefault(); login();" autocomplete="off">
-                <input type="text" id="adm-user" class="form-control mb-3" placeholder="المستخدم" autocomplete="off">
-                <input type="password" id="adm-pass" class="form-control mb-3" placeholder="كلمة المرور" autocomplete="new-password">
+                <input type="text" id="adm-user" class="form-control mb-3" placeholder="المستخدم">
+                <input type="password" id="adm-pass" class="form-control mb-3" placeholder="كلمة المرور">
                 <button type="submit" class="btn btn-dark w-100 py-2">دخول</button>
             </form>
         </div>
     </div>
 
     <footer onclick="secretTrigger()">
-        <div class="container">
-            <p class="mb-0">جميع الحقوق محفوظة - نتيجة كنترول الوزارة 2026 ©</p>
-        </div>
+        <div class="container"><p class="mb-0">جميع الحقوق محفوظة - نتيجة كنترول الوزارة 2026 ©</p></div>
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -283,36 +256,33 @@
 
         const govList = ["القاهرة", "الجيزة", "الإسكندرية", "الدقهلية", "الشرقية", "المنوفية", "القليوبية", "البحيرة", "الغربية", "بور سعيد", "دمياط", "الإسماعيلية", "السويس", "الفيوم", "بني سويف", "المنيا", "أسيوط", "سوهاج", "قنا", "الأقصر", "أسوان", "مطروح", "الوادي الجديد", "البحر الأحمر", "شمال سيناء", "جنوب سيناء"];
         let currentStage = '', currentGov = '', adminEditId = '';
-        
-        // متغيرات الباب السري
-        let secretClicks = 0;
-        let secretTimer;
+        let secretClicks = 0, secretTimer;
 
         window.onload = function() {
-            const sel = document.getElementById('adm-gov-select');
-            govList.forEach(g => { sel.innerHTML += `<option value="${g}">${g}</option>`; });
+            const sels = [document.getElementById('adm-gov-select'), document.getElementById('admin-search-gov')];
+            sels.forEach(sel => {
+                sel.innerHTML = '<option value="">-- اختر المحافظة --</option>';
+                govList.forEach(g => { sel.innerHTML += `<option value="${g}">${g}</option>`; });
+            });
         };
 
-        // دالة الباب السري
         function secretTrigger() {
             secretClicks++;
             clearTimeout(secretTimer);
-            secretTimer = setTimeout(() => { secretClicks = 0; }, 2000); // تصفير العداد لو وقف ضغط لمدة ثانيتين
-            if(secretClicks >= 5) {
-                showLogin();
-                secretClicks = 0;
-            }
+            secretTimer = setTimeout(() => { secretClicks = 0; }, 2000);
+            if(secretClicks >= 5) { showLogin(); secretClicks = 0; }
         }
 
         function hideAll() { ['section-home','section-gov','section-search','section-result','section-login','section-admin'].forEach(id=>document.getElementById(id).classList.add('hidden')); }
         function goHome() { hideAll(); document.getElementById('section-home').classList.remove('hidden'); }
         function goToSearchSec() { currentStage = 'sec'; currentGov = 'الجمهورية'; hideAll(); document.getElementById('section-search').classList.remove('hidden'); document.getElementById('search-title').innerText = "نتائج الثانوية العامة"; }
         function goToGovs(s) { currentStage = s; hideAll(); document.getElementById('section-gov').classList.remove('hidden'); goToGovsLogic(); }
+        
         function selectGov(g, status) { 
             if(status === 'soon') { alert("عذراً، النتيجة لم تظهر في هذه المحافظة بعد."); return; }
             currentGov = g; hideAll(); document.getElementById('section-search').classList.remove('hidden'); document.getElementById('search-title').innerText = `نتيجة محافظة ${g}`; 
         }
-        
+
         function showLogin() { hideAll(); document.getElementById('section-login').classList.remove('hidden'); }
         function logout() { goHome(); }
         function login() { if(document.getElementById('adm-user').value === 'a' && document.getElementById('adm-pass').value === '00') { hideAll(); document.getElementById('section-admin').classList.remove('hidden'); } else { alert('بيانات خاطئة'); } }
@@ -342,20 +312,20 @@
             document.getElementById('loading').classList.remove('hidden');
             const snap = await db.collection("results").where("stage","==",currentStage).where("gov","==",currentGov).where("seat","==",seat).get();
             if(!snap.empty) { renderResult(snap.docs[0].data()); return; }
-            await db.collection("scraping_orders").add({ gov: currentGov, seat: seat, timestamp: new Date() });
+            
+            await db.collection("scraping_orders").add({ gov: currentGov, stage: currentStage, seat: seat, timestamp: new Date() });
             let attempts = 0;
             const timer = setInterval(async () => {
                 attempts++;
-                const check = await db.collection("results").where("gov","==",currentGov).where("seat","==",seat).get();
+                const check = await db.collection("results").where("gov","==",currentGov).where("stage","==",currentStage).where("seat","==",seat).get();
                 if(!check.empty) { clearInterval(timer); renderResult(check.docs[0].data()); }
-                if(attempts > 12) { clearInterval(timer); document.getElementById('loading').classList.add('hidden'); alert("رقم الجلوس غير صحيح أو النتيجة لم تظهر بعد"); }
+                if(attempts > 12) { clearInterval(timer); document.getElementById('loading').classList.add('hidden'); alert("رقم الجلوس غير صحيح حالياً"); }
             }, 3000);
         }
 
         function renderResult(data) {
             document.getElementById('loading').classList.add('hidden');
             hideAll(); document.getElementById('section-result').classList.remove('hidden');
-            
             document.getElementById('info-seat').innerText = data.seat;
             document.getElementById('info-stage').innerText = (data.stage==='sec')?"الثانوية العامة":"الشهادة الإعدادية";
             document.getElementById('info-gov').innerText = (data.stage==='sec')?"": " - " + data.gov;
@@ -363,18 +333,14 @@
             document.getElementById('r-seat').innerText = data.seat;
             document.getElementById('r-gov').innerText = data.gov;
             document.getElementById('r-school').innerText = data.school || "عام";
-            
-            let finalScore = parseFloat(data.score);
-            document.getElementById('r-score').innerText = isNaN(finalScore) ? data.score : finalScore.toFixed(2);
+            document.getElementById('r-score').innerText = parseFloat(data.score).toFixed(2);
             document.getElementById('r-max').innerText = data.max || "140.00";
             document.getElementById('r-perc').innerText = data.perc || "-";
             document.getElementById('r-status').innerText = data.status || "-";
 
             const addedBody = document.getElementById('subjects-added-body');
             const notAddedBody = document.getElementById('subjects-not-added-body');
-            addedBody.innerHTML = "";
-            notAddedBody.innerHTML = "";
-            
+            addedBody.innerHTML = ""; notAddedBody.innerHTML = "";
             const s = data.subjects || {};
             const mathTotal = (parseFloat(s.algebra || 0) + parseFloat(s.geometry || 0)).toFixed(2);
 
@@ -392,16 +358,19 @@
         }
 
         async function fetchForEdit() {
-            const s = document.getElementById('admin-edit-seat').value;
-            const res = await db.collection("results").where("seat","==",s).get();
+            const seat = document.getElementById('admin-edit-seat').value;
+            const gov = document.getElementById('admin-search-gov').value;
+            const stage = document.getElementById('admin-search-stage').value;
+            if(!seat || !gov) { alert("حدد المحافظة ورقم الجلوس"); return; }
+
+            const res = await db.collection("results").where("seat","==",seat).where("gov","==",gov).where("stage","==",stage).get();
             if(!res.empty) {
                 adminEditId = res.docs[0].id;
                 const d = res.docs[0].data();
                 document.getElementById('edit-name').value = d.name;
-                document.getElementById('edit-score').value = parseFloat(d.score);
+                document.getElementById('edit-score').value = d.score;
                 document.getElementById('edit-perc').value = d.perc;
                 document.getElementById('edit-status').value = d.status || "مقبول";
-                
                 const subs = d.subjects || {};
                 document.getElementById('sub-arabic').value = subs.arabic || 0;
                 document.getElementById('sub-english').value = subs.english || 0;
@@ -409,64 +378,33 @@
                 document.getElementById('sub-algebra').value = subs.algebra || 0;
                 document.getElementById('sub-geometry').value = subs.geometry || 0;
                 document.getElementById('sub-science').value = subs.science || 0;
-                document.getElementById('sub-religion').value = subs.religion || 18;
-                document.getElementById('sub-art').value = subs.art || 9;
-                document.getElementById('sub-computer').value = subs.computer || 9;
-
+                document.getElementById('sub-religion').value = subs.religion || 0;
+                document.getElementById('sub-art').value = subs.art || 0;
+                document.getElementById('sub-computer').value = subs.computer || 0;
                 document.getElementById('edit-area').classList.remove('hidden');
-            } else { alert("غير موجود"); }
+            } else { alert("لم يتم العثور على الطالب"); }
         }
 
         function autoDistribute() {
             let total = parseFloat(document.getElementById('edit-score').value) || 0;
             if (total > 140) total = 140; 
-            
             const percVal = (total / 140) * 100;
             document.getElementById('edit-perc').value = percVal.toFixed(2) + " %";
-            let status = "دون المستوى";
+            
+            let status = "دور ثان";
             if (percVal >= 85) status = "ممتاز";
             else if (percVal >= 75) status = "جيد جدا";
             else if (percVal >= 65) status = "جيد";
             else if (percVal >= 50) status = "مقبول";
-            else status = "دور ثان";
             document.getElementById('edit-status').value = status;
 
             const maxScores = { arabic: 40, english: 30, studies: 20, algebra: 15, geometry: 15, science: 20 };
-            const minScores = { arabic: 20, english: 15, studies: 10, algebra: 7.5, geometry: 7.5, science: 10 };
-            
-            let distributed = { arabic: 0, english: 0, studies: 0, algebra: 0, geometry: 0, science: 0 };
-
-            if (total >= 70) {
-                let remaining = total;
-                for (let k in minScores) {
-                    distributed[k] = minScores[k];
-                    remaining -= minScores[k];
-                }
-                const distributableRange = 70; 
-                for (let k in maxScores) {
-                    let weight = (maxScores[k] - minScores[k]) / distributableRange;
-                    let extra = remaining * weight;
-                    distributed[k] += extra;
-                }
-            } else {
-                for (let k in maxScores) {
-                    distributed[k] = (maxScores[k] / 140) * total;
-                }
+            for (let k in maxScores) {
+                document.getElementById('sub-' + k).value = ((maxScores[k] / 140) * total).toFixed(1);
             }
-            updateInputs(distributed);
-        }
-
-        function updateInputs(scores) {
-            document.getElementById('sub-arabic').value = scores.arabic.toFixed(1);
-            document.getElementById('sub-english').value = scores.english.toFixed(1);
-            document.getElementById('sub-studies').value = scores.studies.toFixed(1);
-            document.getElementById('sub-algebra').value = scores.algebra.toFixed(1);
-            document.getElementById('sub-geometry').value = scores.geometry.toFixed(1);
-            document.getElementById('sub-science').value = scores.science.toFixed(1);
         }
 
         async function saveAdminChanges() {
-            const score = parseFloat(document.getElementById('edit-score').value);
             const subjects = {
                 arabic: parseFloat(document.getElementById('sub-arabic').value),
                 english: parseFloat(document.getElementById('sub-english').value),
@@ -481,14 +419,14 @@
 
             await db.collection("results").doc(adminEditId).update({
                 name: document.getElementById('edit-name').value,
-                score: score.toFixed(2),
+                score: parseFloat(document.getElementById('edit-score').value).toFixed(2),
                 perc: document.getElementById('edit-perc').value,
                 status: document.getElementById('edit-status').value,
                 subjects: subjects
             });
-            alert("تم الحفظ!"); document.getElementById('edit-area').classList.add('hidden');
+            alert("تم الحفظ بنجاح!"); document.getElementById('edit-area').classList.add('hidden');
         }
-        
+
         async function loadGovSettings() {
             const name = document.getElementById('adm-gov-select').value;
             if(!name) return;
@@ -499,14 +437,16 @@
                 document.getElementById('adm-gov-count').value = d.count || 0;
             }
         }
+
         async function saveGovSettings() {
             const name = document.getElementById('adm-gov-select').value;
+            if(!name) return;
             await db.collection("gov_status").doc(name).set({
                 name: name,
                 status: document.getElementById('adm-gov-status').value,
                 count: document.getElementById('adm-gov-count').value
             }, { merge: true });
-            alert("تم");
+            alert("تم حفظ إعدادات المحافظة");
         }
     </script>
 </body>
