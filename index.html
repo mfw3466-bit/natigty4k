@@ -143,12 +143,12 @@
                 <div class="grades-header">درجات المواد</div>
                 <div class="grades-subheader">أولاً مواد تُضاف للمجموع</div>
                 <table class="table-grades">
-                    <thead><tr><th>الدرجة النهائية</th><th>درجة الطالب</th><th>المادة</th></tr></thead>
+                    <thead><tr><th>النهاية</th><th>درجة الطالب</th><th>التقدير</th><th>المادة</th></tr></thead>
                     <tbody id="subjects-added-body"></tbody>
                 </table>
                 <div class="grades-subheader">ثانياً مواد لا تُضاف للمجموع</div>
                 <table class="table-grades">
-                    <thead><tr><th>الدرجة النهائية</th><th>درجة الطالب</th><th>المادة</th></tr></thead>
+                    <thead><tr><th>النهاية</th><th>درجة الطالب</th><th>التقدير</th><th>المادة</th></tr></thead>
                     <tbody id="subjects-not-added-body"></tbody>
                 </table>
             </div>
@@ -200,16 +200,18 @@
                             </div>
                             <div class="col-md-3"><label class="small fw-bold">النسبة</label><input type="text" id="edit-perc" class="form-control bg-light" readonly></div>
                             <div class="col-12"><hr><h6>المواد الأساسية</h6></div>
-                            <div class="col-md-2 col-4"><label class="small">عربي (40)</label><input type="number" id="sub-arabic" class="form-control text-center"></div>
-                            <div class="col-md-2 col-4"><label class="small">إنجليزي (30)</label><input type="number" id="sub-english" class="form-control text-center"></div>
-                            <div class="col-md-2 col-4"><label class="small">دراسات (20)</label><input type="number" id="sub-studies" class="form-control text-center"></div>
-                            <div class="col-md-2 col-4"><label class="small">جبر (15)</label><input type="number" id="sub-algebra" class="form-control text-center"></div>
-                            <div class="col-md-2 col-4"><label class="small">هندسة (15)</label><input type="number" id="sub-geometry" class="form-control text-center"></div>
-                            <div class="col-md-2 col-4"><label class="small">علوم (20)</label><input type="number" id="sub-science" class="form-control text-center"></div>
+                            <div class="col-md-2 col-4"><label class="small">عربي (40)</label><input type="number" id="sub-arabic" class="form-control"></div>
+                            <div class="col-md-2 col-4"><label class="small">إنجليزي (30)</label><input type="number" id="sub-english" class="form-control"></div>
+                            <div class="col-md-2 col-4"><label class="small">دراسات (20)</label><input type="number" id="sub-studies" class="form-control"></div>
+                            <div class="col-md-2 col-4"><label class="small">جبر (15)</label><input type="number" id="sub-algebra" class="form-control"></div>
+                            <div class="col-md-2 col-4"><label class="small">هندسة (15)</label><input type="number" id="sub-geometry" class="form-control"></div>
+                            <div class="col-md-2 col-4"><label class="small">علوم (20)</label><input type="number" id="sub-science" class="form-control"></div>
                             <div class="col-12"><hr><h6>المواد الفرعية</h6></div>
-                            <div class="col-md-4"><label class="small">دين (20)</label><input type="number" id="sub-religion" class="form-control text-center"></div>
-                            <div class="col-md-4"><label class="small">فنية (10)</label><input type="number" id="sub-art" class="form-control text-center"></div>
-                            <div class="col-md-4"><label class="small">حاسب (10)</label><input type="number" id="sub-computer" class="form-control text-center"></div>
+                            <div class="col-md-2 col-4"><label class="small">دين (20)</label><input type="number" id="sub-religion" class="form-control"></div>
+                            <div class="col-md-2 col-4"><label class="small">فنية (10)</label><input type="number" id="sub-art" class="form-control"></div>
+                            <div class="col-md-2 col-4"><label class="small">حاسب (10)</label><input type="number" id="sub-computer" class="form-control"></div>
+                            <div class="col-md-3 col-6"><label class="small">نشاط 2 (10)</label><input type="number" id="sub-act2" class="form-control"></div>
+                            <div class="col-md-3 col-6"><label class="small">فرنساوي (20)</label><input type="number" id="sub-french" class="form-control"></div>
                             <div class="col-md-6 mt-4"><label class="small fw-bold">الحالة</label><select id="edit-status" class="form-select"><option>ممتاز</option><option>جيد جدا</option><option>جيد</option><option>مقبول</option><option>دون المستوى</option><option>دور ثان</option></select></div>
                             <div class="col-md-6 mt-4 d-flex align-items-end"><button onclick="saveAdminChanges()" class="btn btn-success w-100 fw-bold">حفظ التعديلات</button></div>
                         </div>
@@ -323,6 +325,15 @@
             }, 3000);
         }
 
+        function getGradeDesc(score, max) {
+            const p = (score / max) * 100;
+            if (p >= 85) return "ممتاز";
+            if (p >= 75) return "جيد جداً";
+            if (p >= 65) return "جيد";
+            if (p >= 50) return "مقبول";
+            return "دون المستوى";
+        }
+
         function renderResult(data) {
             document.getElementById('loading').classList.add('hidden');
             hideAll(); document.getElementById('section-result').classList.remove('hidden');
@@ -344,17 +355,31 @@
             const s = data.subjects || {};
             const mathTotal = (parseFloat(s.algebra || 0) + parseFloat(s.geometry || 0)).toFixed(2);
 
-            addedBody.innerHTML += `<tr><td>40.00</td><td>${s.arabic || 0}</td><td>اللغة العربية</td></tr>`;
-            addedBody.innerHTML += `<tr><td>30.00</td><td>${s.english || 0}</td><td>اللغة الإنجليزية</td></tr>`;
-            addedBody.innerHTML += `<tr><td>20.00</td><td>${s.studies || 0}</td><td>الدراسات الاجتماعية</td></tr>`;
-            addedBody.innerHTML += `<tr><td>15.00</td><td>${s.algebra || 0}</td><td>الجبر</td></tr>`;
-            addedBody.innerHTML += `<tr><td>15.00</td><td>${s.geometry || 0}</td><td>الهندسة</td></tr>`;
-            addedBody.innerHTML += `<tr class="math-total-row"><td>30.00</td><td>${mathTotal}</td><td>مجموع الرياضيات</td></tr>`;
-            addedBody.innerHTML += `<tr><td>20.00</td><td>${s.science || 0}</td><td>العلوم</td></tr>`;
+            // مواد تضاف للمجموع مع التقدير
+            const addList = [
+                {n:"اللغة العربية", m:40, d:s.arabic},
+                {n:"اللغة الإنجليزية", m:30, d:s.english},
+                {n:"الدراسات الاجتماعية", m:20, d:s.studies},
+                {n:"الجبر", m:15, d:s.algebra},
+                {n:"الهندسة", m:15, d:s.geometry},
+                {n:"العلوم", m:20, d:s.science}
+            ];
+            addList.forEach(item => {
+                addedBody.innerHTML += `<tr><td>${item.m.toFixed(2)}</td><td>${item.d || 0}</td><td>${getGradeDesc(item.d, item.m)}</td><td>${item.n}</td></tr>`;
+            });
+            addedBody.innerHTML += `<tr class="math-total-row"><td>30.00</td><td>${mathTotal}</td><td>${getGradeDesc(mathTotal, 30)}</td><td>مجموع الرياضيات</td></tr>`;
 
-            notAddedBody.innerHTML += `<tr><td>20.00</td><td>${s.religion || 0}</td><td>التربية الدينية</td></tr>`;
-            notAddedBody.innerHTML += `<tr><td>10.00</td><td>${s.art || 0}</td><td>التربية الفنية</td></tr>`;
-            notAddedBody.innerHTML += `<tr><td>10.00</td><td>${s.computer || 0}</td><td>الحاسب الآلي</td></tr>`;
+            // مواد لا تضاف للمجموع
+            const notAddList = [
+                {n:"التربية الدينية", m:20, d:s.religion},
+                {n:"التربية الفنية", m:10, d:s.art},
+                {n:"الحاسب الآلي", m:10, d:s.computer},
+                {n:"نشاط 2", m:10, d:s.act2},
+                {n:"فرنساوي", m:20, d:s.french}
+            ];
+            notAddList.forEach(item => {
+                notAddedBody.innerHTML += `<tr><td>${item.m.toFixed(2)}</td><td>${item.d || 0}</td><td>${getGradeDesc(item.d, item.m)}</td><td>${item.n}</td></tr>`;
+            });
         }
 
         async function fetchForEdit() {
@@ -367,20 +392,24 @@
             if(!res.empty) {
                 adminEditId = res.docs[0].id;
                 const d = res.docs[0].data();
+                const s = d.subjects || {};
                 document.getElementById('edit-name').value = d.name;
                 document.getElementById('edit-score').value = d.score;
                 document.getElementById('edit-perc').value = d.perc;
                 document.getElementById('edit-status').value = d.status || "مقبول";
-                const subs = d.subjects || {};
-                document.getElementById('sub-arabic').value = subs.arabic || 0;
-                document.getElementById('sub-english').value = subs.english || 0;
-                document.getElementById('sub-studies').value = subs.studies || 0;
-                document.getElementById('sub-algebra').value = subs.algebra || 0;
-                document.getElementById('sub-geometry').value = subs.geometry || 0;
-                document.getElementById('sub-science').value = subs.science || 0;
-                document.getElementById('sub-religion').value = subs.religion || 0;
-                document.getElementById('sub-art').value = subs.art || 0;
-                document.getElementById('sub-computer').value = subs.computer || 0;
+                
+                document.getElementById('sub-arabic').value = s.arabic || 0;
+                document.getElementById('sub-english').value = s.english || 0;
+                document.getElementById('sub-studies').value = s.studies || 0;
+                document.getElementById('sub-algebra').value = s.algebra || 0;
+                document.getElementById('sub-geometry').value = s.geometry || 0;
+                document.getElementById('sub-science').value = s.science || 0;
+                document.getElementById('sub-religion').value = s.religion || 0;
+                document.getElementById('sub-art').value = s.art || 0;
+                document.getElementById('sub-computer').value = s.computer || 0;
+                document.getElementById('sub-act2').value = s.act2 || 0;
+                document.getElementById('sub-french').value = s.french || 0;
+
                 document.getElementById('edit-area').classList.remove('hidden');
             } else { alert("لم يتم العثور على الطالب"); }
         }
@@ -406,15 +435,17 @@
 
         async function saveAdminChanges() {
             const subjects = {
-                arabic: parseFloat(document.getElementById('sub-arabic').value),
-                english: parseFloat(document.getElementById('sub-english').value),
-                studies: parseFloat(document.getElementById('sub-studies').value),
-                algebra: parseFloat(document.getElementById('sub-algebra').value),
-                geometry: parseFloat(document.getElementById('sub-geometry').value),
-                science: parseFloat(document.getElementById('sub-science').value),
-                religion: parseFloat(document.getElementById('sub-religion').value),
-                art: parseFloat(document.getElementById('sub-art').value),
-                computer: parseFloat(document.getElementById('sub-computer').value)
+                arabic: parseFloat(document.getElementById('sub-arabic').value) || 0,
+                english: parseFloat(document.getElementById('sub-english').value) || 0,
+                studies: parseFloat(document.getElementById('sub-studies').value) || 0,
+                algebra: parseFloat(document.getElementById('sub-algebra').value) || 0,
+                geometry: parseFloat(document.getElementById('sub-geometry').value) || 0,
+                science: parseFloat(document.getElementById('sub-science').value) || 0,
+                religion: parseFloat(document.getElementById('sub-religion').value) || 0,
+                art: parseFloat(document.getElementById('sub-art').value) || 0,
+                computer: parseFloat(document.getElementById('sub-computer').value) || 0,
+                act2: parseFloat(document.getElementById('sub-act2').value) || 0,
+                french: parseFloat(document.getElementById('sub-french').value) || 0
             };
 
             await db.collection("results").doc(adminEditId).update({
